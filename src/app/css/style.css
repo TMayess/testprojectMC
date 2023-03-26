@@ -1,0 +1,21 @@
+.button2 {
+    -fx-background-color:  #212F3C;
+    -fx-text-fill: #fff;
+}
+
+.button2:hover {
+    -fx-background-color: #2E4053;
+    -fx-text-fill: #fff;
+}
+
+.button2:pressed {
+    -fx-background-color: #2E4053;
+    -fx-text-fill: #fff;
+}
+.button2:focused {
+    -fx-background-color: #2E4053;
+    -fx-text-fill: #fff;
+    -fx-border-color: #FFF;
+    -fx-border-width: 0 0 0 3;
+}
+

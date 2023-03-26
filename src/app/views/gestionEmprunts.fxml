@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+
+
+<Pane prefHeight="130.0" prefWidth="181.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.GestionEmpruntController">
+   <children>
+      <Label layoutX="63.0" layoutY="57.0" text="emprunt" textFill="WHITE" />
+   </children>
+</Pane>
