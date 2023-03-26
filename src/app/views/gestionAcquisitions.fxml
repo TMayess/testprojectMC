@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<Pane prefHeight="109.0" prefWidth="186.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.GestionAcquisitionController">
-    <children>
-        <Label layoutX="66.0" layoutY="46.0" text="restitution" textFill="WHITE" />
-    </children>
-</Pane>
 
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Accordion layoutX="105.0" layoutY="107.0" />
+      <GridPane layoutX="-2.0" layoutY="50.0" prefHeight="344.0" prefWidth="600.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="166.0" minHeight="10.0" prefHeight="13.33333969116211" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="330.6666603088379" minHeight="10.0" prefHeight="330.6666603088379" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TableView prefHeight="331.0" prefWidth="600.0" GridPane.rowIndex="1">
+              <columns>
+                <TableColumn prefWidth="55.999969482421875" text="ID" />
+                <TableColumn prefWidth="87.99996948242188" text="Titre" />
+                  <TableColumn prefWidth="88.66668701171875" text="Auteur" />
+                  <TableColumn prefWidth="90.6666259765625" text="Carégorie" />
+                  <TableColumn prefWidth="104.6666259765625" text="Type" />
+                  <TableColumn prefWidth="129.33333333333337" text="Disponible" />
+              </columns>
+            </TableView>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
