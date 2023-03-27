@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="995.0" style="-fx-background-color: #EAECEE;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.MainController">
+<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="995.0" style="-fx-background-color: #EAECEE;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.MainBibliothecaireController">
    <left>
    <VBox prefHeight="624.0" prefWidth="242.0" style="-fx-background-color: #212F3C;" BorderPane.alignment="CENTER">
       <children>
@@ -75,19 +75,19 @@
                   <Image url="@../images/icon-book.png" />
                </image>
             </ImageView>
-            <Button fx:id="closeButton" alignment="TOP_CENTER" layoutX="953.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0">
+            <Button fx:id="closeButton" alignment="TOP_CENTER" layoutX="953.0" layoutY="10.0" mnemonicParsing="false" onAction="#onClickClose" prefHeight="25.0" prefWidth="25.0">
                <padding>
                   <Insets bottom="-6.0" left="-5.0" right="-5.0" top="-5.0" />
                </padding>
                <graphic>
-                  <ImageView fitHeight="34.0" fitWidth="35.0"  pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="34.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/icon-close.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="reduceButton" alignment="TOP_CENTER" layoutX="916.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0">
+            <Button fx:id="reduceButton" alignment="TOP_CENTER" layoutX="916.0" layoutY="10.0" mnemonicParsing="false" onAction="#onClickReduce" prefHeight="25.0" prefWidth="25.0">
                <padding>
                   <Insets bottom="-5.0" left="-5.0" right="-5.0" top="-5.0" />
                </padding>

@@ -23,9 +23,9 @@
         </Pane>
       <TableView layoutX="41.0" layoutY="279.0" prefHeight="303.0" prefWidth="670.0">
         <columns>
-          <TableColumn prefWidth="90.66668319702148" text="ID" />
-          <TableColumn prefWidth="101.33331298828125" text="Exemplaire" />
-            <TableColumn prefWidth="80.66667175292969" text="abonné" />
+          <TableColumn prefWidth="100" text="ID" />
+          <TableColumn prefWidth="100" text="Exemplaire" />
+            <TableColumn prefWidth="100" text="abonné" />
             <TableColumn prefWidth="178.0" text="Date Emprunt" />
             <TableColumn prefWidth="139.33334350585938" text="Date Retour" />
         </columns>
@@ -45,12 +45,12 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Label layoutX="60.0" layoutY="206.0" text="Rapport détaillé des emprunts ">
+      <Label layoutX="60.0" layoutY="206.0" text="Rapport détaillé des emprunts de la journée ">
          <font>
             <Font size="13.0" />
          </font>
       </Label>
-      <DatePicker layoutX="316.0" layoutY="199.0" prefHeight="34.0" prefWidth="187.0" />
+      <DatePicker layoutX="332.0" layoutY="199.0" prefHeight="34.0" prefWidth="187.0" />
 
     </children>
 </AnchorPane>
