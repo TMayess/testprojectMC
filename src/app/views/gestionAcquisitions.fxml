@@ -1,37 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="753.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Accordion layoutX="105.0" layoutY="107.0" />
-      <GridPane layoutX="-2.0" layoutY="50.0" prefHeight="344.0" prefWidth="600.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="166.0" minHeight="10.0" prefHeight="13.33333969116211" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="330.6666603088379" minHeight="10.0" prefHeight="330.6666603088379" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <TableView layoutX="30.0" layoutY="269.0" prefHeight="319.0" prefWidth="690.0">
+        <columns>
+          <TableColumn minWidth="-Infinity" prefWidth="98.0000057220459" text="Référence" />
+          <TableColumn minWidth="-Infinity" prefWidth="129.3333282470703" text="Titre" />
+            <TableColumn minWidth="-Infinity" prefWidth="127.33331298828125" text="Auteur" />
+            <TableColumn minWidth="-Infinity" prefWidth="116.0" text="Catégorie" />
+            <TableColumn minWidth="-Infinity" prefWidth="111.33334350585938" text="Type" />
+            <TableColumn minWidth="-Infinity" prefWidth="112.00006103515625" text="Exemplaires" />
+        </columns>
+      </TableView>
+      <Pane prefHeight="74.0" prefWidth="753.0" style="-fx-background-color: #AEB6BF;">
          <children>
-            <TableView prefHeight="331.0" prefWidth="600.0" GridPane.rowIndex="1">
-              <columns>
-                <TableColumn prefWidth="55.999969482421875" text="ID" />
-                <TableColumn prefWidth="87.99996948242188" text="Titre" />
-                  <TableColumn prefWidth="88.66668701171875" text="Auteur" />
-                  <TableColumn prefWidth="90.6666259765625" text="Carégorie" />
-                  <TableColumn prefWidth="104.6666259765625" text="Type" />
-                  <TableColumn prefWidth="129.33333333333337" text="Disponible" />
-              </columns>
-            </TableView>
+            <Label layoutX="42.0" layoutY="20.0" text="Gestion d'acquisition de nouveau ouvrage" textFill="#212f3c">
+               <font>
+                  <Font name="System Bold" size="23.0" />
+               </font>
+            </Label>
          </children>
-      </GridPane>
+      </Pane>
+      <TextField layoutX="334.0" layoutY="211.0" prefHeight="39.0" prefWidth="246.0" />
+      <Button layoutX="590.0" layoutY="211.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="130.0" text="Recherche" />
+      <Label layoutX="30.0" layoutY="221.0" text="Recherche par :">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ComboBox layoutX="133.0" layoutY="211.0" prefHeight="39.0" prefWidth="189.0" />
    </children>
 </AnchorPane>
