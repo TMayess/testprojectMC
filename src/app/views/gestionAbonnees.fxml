@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -15,7 +16,7 @@
 
         <Pane prefHeight="74.0" prefWidth="753.0" style="-fx-background-color: #AEB6BF;">
             <children>
-                <Label layoutX="42.0" layoutY="20.0" text="Gestion des abonnees" textFill="#212f3c">
+                <Label layoutX="42.0" layoutY="20.0" text="Gestion des abonnées" textFill="#212f3c">
                     <font>
                         <Font name="System Bold" size="23.0" />
                     </font>
@@ -23,7 +24,37 @@
             </children>
         </Pane>
 
+        <TextField layoutX="336.0" layoutY="331.0" prefHeight="39.0" prefWidth="246.0" />
+        <Button layoutX="592.0" layoutY="331.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="130.0" text="Recherche" />
+        <Label layoutX="32.0" layoutY="341.0" text="Recherche par :">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <ComboBox layoutX="135.0" layoutY="331.0" prefHeight="39.0" prefWidth="189.0" />
+
+        <TableView layoutX="29.0" layoutY="390.0" prefHeight="141.0" prefWidth="696.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+      <Label layoutX="32.0" layoutY="87.0" text="Ajoute un abonnee">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="592.0" layoutY="550.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="130.0" text="Modifier" />
+      <Button layoutX="441.0" layoutY="550.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="130.0" text="Supprimer" />
+      <TextField layoutX="32.0" layoutY="121.0" prefHeight="39.0" prefWidth="216.0" promptText="Identifiant" />
+      <TextField layoutX="32.0" layoutY="179.0" prefHeight="39.0" prefWidth="216.0" promptText="Prenom" />
+      <TextField layoutX="283.0" layoutY="179.0" prefHeight="39.0" prefWidth="216.0" promptText="Date de naissance" />
+      <TextField layoutX="283.0" layoutY="121.0" prefHeight="39.0" prefWidth="216.0" promptText="Nom" />
+      <ComboBox layoutX="532.0" layoutY="179.0" prefHeight="39.0" prefWidth="189.0" />
+      <ComboBox layoutX="532.0" layoutY="121.0" prefHeight="39.0" prefWidth="189.0" />
+      <Button layoutX="556.0" layoutY="237.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="166.0" text="Ajouter" />
+      <Separator layoutX="90.0" layoutY="304.0" prefHeight="0.0" prefWidth="602.0" />
+
 
     </children>
 </AnchorPane>
-

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -22,8 +22,29 @@
                 </Label>
             </children>
         </Pane>
+        <TextField layoutX="338.0" layoutY="159.0" prefHeight="39.0" prefWidth="246.0" />
+        <Button layoutX="594.0" layoutY="159.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="130.0" text="Recherche" />
+        <Label layoutX="34.0" layoutY="169.0" text="Recherche par :">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <ComboBox layoutX="137.0" layoutY="159.0" prefHeight="39.0" prefWidth="189.0" />
+      <TableView layoutX="35.0" layoutY="216.0" prefHeight="312.0" prefWidth="687.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+      <Label layoutX="228.0" layoutY="110.0" text="Liste des abonnees qui en dépasser la date limite">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="584.0" layoutY="551.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="130.0" text="Sanctionner" />
+      <Button layoutX="437.0" layoutY="551.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="130.0" text="Prolonger" />
+
 
 
     </children>
 </AnchorPane>
-
