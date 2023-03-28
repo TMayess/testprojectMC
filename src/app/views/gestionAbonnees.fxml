@@ -24,19 +24,21 @@
             </children>
         </Pane>
 
-        <TextField layoutX="336.0" layoutY="331.0" prefHeight="39.0" prefWidth="246.0" />
-        <Button layoutX="592.0" layoutY="331.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="130.0" text="Recherche" />
-        <Label layoutX="32.0" layoutY="341.0" text="Recherche par :">
+        <TextField layoutX="336.0" layoutY="328.0" prefHeight="39.0" prefWidth="246.0" />
+        <Button layoutX="591.0" layoutY="325.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" text="Recherche" />
+        <Label layoutX="32.0" layoutY="338.0" text="Recherche par :">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
-        <ComboBox layoutX="135.0" layoutY="331.0" prefHeight="39.0" prefWidth="189.0" />
+        <ComboBox layoutX="135.0" layoutY="328.0" prefHeight="39.0" prefWidth="189.0" />
 
-        <TableView layoutX="29.0" layoutY="390.0" prefHeight="141.0" prefWidth="696.0">
+        <TableView layoutX="41.0" layoutY="391.0" prefHeight="141.0" prefWidth="670.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn prefWidth="134.66666221618652" text="Identifiant" />
+          <TableColumn prefWidth="150.6666717529297" text="Nom" />
+            <TableColumn prefWidth="105.3333740234375" text="Prenom" />
+            <TableColumn prefWidth="253.33340454101562" text="Date de naissance" />
         </columns>
       </TableView>
       <Label layoutX="32.0" layoutY="87.0" text="Ajoute un abonnee">
@@ -44,15 +46,15 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="592.0" layoutY="550.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="130.0" text="Modifier" />
-      <Button layoutX="441.0" layoutY="550.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="130.0" text="Supprimer" />
+      <Button layoutX="582.0" layoutY="550.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" text="Modifier" />
+      <Button layoutX="434.0" layoutY="550.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" text="Supprimer" />
       <TextField layoutX="32.0" layoutY="121.0" prefHeight="39.0" prefWidth="216.0" promptText="Identifiant" />
       <TextField layoutX="32.0" layoutY="179.0" prefHeight="39.0" prefWidth="216.0" promptText="Prenom" />
       <TextField layoutX="283.0" layoutY="179.0" prefHeight="39.0" prefWidth="216.0" promptText="Date de naissance" />
       <TextField layoutX="283.0" layoutY="121.0" prefHeight="39.0" prefWidth="216.0" promptText="Nom" />
       <ComboBox layoutX="532.0" layoutY="179.0" prefHeight="39.0" prefWidth="189.0" />
       <ComboBox layoutX="532.0" layoutY="121.0" prefHeight="39.0" prefWidth="189.0" />
-      <Button layoutX="556.0" layoutY="237.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="166.0" text="Ajouter" />
+      <Button layoutX="555.0" layoutY="234.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="166.0" text="Ajouter" />
       <Separator layoutX="90.0" layoutY="304.0" prefHeight="0.0" prefWidth="602.0" />
 
 

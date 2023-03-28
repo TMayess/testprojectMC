@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -10,16 +11,15 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="753.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="753.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.GestionAcquisitionController">
    <children>
-      <TableView layoutX="32.0" layoutY="326.0" prefHeight="213.0" prefWidth="690.0">
+      <TableView fx:id="acquisitionTableView" layoutX="32.0" layoutY="346.0" prefHeight="193.0" prefWidth="690.0">
         <columns>
-          <TableColumn minWidth="-Infinity" prefWidth="98.0000057220459" text="Référence" />
-          <TableColumn minWidth="-Infinity" prefWidth="129.3333282470703" text="Titre" />
-            <TableColumn minWidth="-Infinity" prefWidth="116.0" text="Catégorie" />
-            <TableColumn minWidth="-Infinity" prefWidth="111.33334350585938" text="Type" />
-            <TableColumn minWidth="-Infinity" prefWidth="112.00006103515625" text="Exemplaires" />
-            <TableColumn minWidth="-Infinity" prefWidth="127.33331298828125" text="Auteur" />
+          <TableColumn fx:id="referenceColumn" minWidth="-Infinity" prefWidth="98.0000057220459" text="Réference" />
+          <TableColumn fx:id="titreColumn" minWidth="-Infinity" prefWidth="129.3333282470703" text="Titre" />
+            <TableColumn fx:id="auteurColumn" minWidth="-Infinity" prefWidth="127.33331298828125" text="Auteur" />
+            <TableColumn fx:id="categorieColumn" minWidth="-Infinity" prefWidth="116.0" text="Catégorie" />
+            <TableColumn fx:id="exemplaireColumn" minWidth="-Infinity" prefWidth="112.00006103515625" text="Exemplaires" />
         </columns>
       </TableView>
       <Pane prefHeight="74.0" prefWidth="753.0" style="-fx-background-color: #AEB6BF;">
@@ -31,24 +31,24 @@
             </Label>
          </children>
       </Pane>
-      <TextField layoutX="339.0" layoutY="269.0" prefHeight="39.0" prefWidth="246.0" />
-      <Button layoutX="592.0" layoutY="269.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="130.0" text="Recherche" />
-      <Label layoutX="32.0" layoutY="279.0" text="Recherche par :">
+      <TextField fx:id="rechercheEdit" layoutX="336.0" layoutY="289.0" prefHeight="39.0" prefWidth="246.0" />
+      <Button fx:id="rechercheButton" layoutX="591.0" layoutY="286.0" mnemonicParsing="false" onAction="#onClickRecherche" prefHeight="45.0" prefWidth="130.0" text="Recherche" />
+      <Label layoutX="32.0" layoutY="299.0" text="Recherche par :">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <ComboBox layoutX="140.0" layoutY="269.0" prefHeight="39.0" prefWidth="189.0" />
-      <Label layoutX="40.0" layoutY="118.0" text="Ajoute un ouvrage">
+      <ComboBox fx:id="rechercheAvecComboBox" layoutX="135.0" layoutY="289.0" prefHeight="39.0" prefWidth="189.0" /><Label layoutX="32.0" layoutY="99.0" text="Ajoute un ouvrage">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="32.0" layoutY="154.0" prefHeight="39.0" prefWidth="246.0" promptText="Identifiant" />
-      <TextField layoutX="306.0" layoutY="154.0" prefHeight="39.0" prefWidth="246.0" promptText="Titre" />
-      <TextField layoutX="32.0" layoutY="201.0" prefHeight="39.0" prefWidth="246.0" promptText="Auteur" />
-      <TextField layoutX="306.0" layoutY="201.0" prefHeight="39.0" prefWidth="246.0" promptText="Catégorie" />
-      <Button layoutX="592.0" layoutY="178.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="130.0" text="Ajouter" />
-      <Button layoutX="548.0" layoutY="555.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="153.0" text="Ajouter exemplaire" />
+      <TextField fx:id="rayonEdit" layoutX="302.0" layoutY="191.0" prefHeight="39.0" prefWidth="246.0" promptText="Rayon" />
+      <TextField fx:id="titreEdit" layoutX="32.0" layoutY="136.0" prefHeight="39.0" prefWidth="246.0" promptText="Titre" />
+      <TextField fx:id="auteurEdit" layoutX="302.0" layoutY="136.0" prefHeight="39.0" prefWidth="246.0" promptText="Auteur" />
+      <TextField fx:id="categorieEdit" layoutX="32.0" layoutY="191.0" prefHeight="39.0" prefWidth="246.0" promptText="Catégorie" />
+      <Button fx:id="ajouteButton" layoutX="592.0" layoutY="175.0" mnemonicParsing="false" onAction="#onClickAjouteOuvrage" prefHeight="45.0" prefWidth="130.0" text="Ajouter" />
+      <Button layoutX="568.0" layoutY="549.0" mnemonicParsing="false" onAction="#onClickAjouteExemplaire" prefHeight="45.0" prefWidth="153.0" text="Ajouter exemplaire" />
+      <Separator layoutX="82.0" layoutY="262.0" prefHeight="0.0" prefWidth="590.0" />
    </children>
 </AnchorPane>
