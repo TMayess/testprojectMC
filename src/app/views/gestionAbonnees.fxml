@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="753.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="753.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.GestionAbonneeController">
     <children>
 
         <Pane prefHeight="74.0" prefWidth="753.0" style="-fx-background-color: #AEB6BF;">
@@ -24,21 +24,20 @@
             </children>
         </Pane>
 
-        <TextField layoutX="336.0" layoutY="328.0" prefHeight="39.0" prefWidth="246.0" />
-        <Button layoutX="591.0" layoutY="325.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" text="Recherche" />
+        <TextField fx:id="rechercheEdit" layoutX="336.0" layoutY="328.0" prefHeight="39.0" prefWidth="246.0" />
+        <Button fx:id="rechercheButton" layoutX="591.0" layoutY="325.0" mnemonicParsing="false" onAction="#onClickRecherche" prefHeight="45.0" prefWidth="130.0" text="Recherche" />
         <Label layoutX="32.0" layoutY="338.0" text="Recherche par :">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
-        <ComboBox layoutX="135.0" layoutY="328.0" prefHeight="39.0" prefWidth="189.0" />
+        <ComboBox fx:id="rechercheComboBox" layoutX="135.0" layoutY="328.0" prefHeight="39.0" prefWidth="189.0" />
 
-        <TableView layoutX="41.0" layoutY="391.0" prefHeight="141.0" prefWidth="670.0">
+        <TableView fx:id="abonneeTableView" layoutX="41.0" layoutY="391.0" prefHeight="141.0" prefWidth="670.0">
         <columns>
-          <TableColumn prefWidth="134.66666221618652" text="Identifiant" />
-          <TableColumn prefWidth="150.6666717529297" text="Nom" />
-            <TableColumn prefWidth="105.3333740234375" text="Prenom" />
-            <TableColumn prefWidth="253.33340454101562" text="Date de naissance" />
+          <TableColumn fx:id="identifiantColumn" prefWidth="134.66666221618652" text="Identifiant" />
+          <TableColumn fx:id="nomColumn" prefWidth="150.6666717529297" text="Nom" />
+            <TableColumn fx:id="prenomColumn" prefWidth="105.3333740234375" text="Prenom" />
         </columns>
       </TableView>
       <Label layoutX="32.0" layoutY="87.0" text="Ajoute un abonnee">
@@ -46,15 +45,15 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="582.0" layoutY="550.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" text="Modifier" />
-      <Button layoutX="434.0" layoutY="550.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" text="Supprimer" />
-      <TextField layoutX="32.0" layoutY="121.0" prefHeight="39.0" prefWidth="216.0" promptText="Identifiant" />
-      <TextField layoutX="32.0" layoutY="179.0" prefHeight="39.0" prefWidth="216.0" promptText="Prenom" />
-      <TextField layoutX="283.0" layoutY="179.0" prefHeight="39.0" prefWidth="216.0" promptText="Date de naissance" />
-      <TextField layoutX="283.0" layoutY="121.0" prefHeight="39.0" prefWidth="216.0" promptText="Nom" />
-      <ComboBox layoutX="532.0" layoutY="179.0" prefHeight="39.0" prefWidth="189.0" />
-      <ComboBox layoutX="532.0" layoutY="121.0" prefHeight="39.0" prefWidth="189.0" />
-      <Button layoutX="555.0" layoutY="234.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="166.0" text="Ajouter" />
+      <Button layoutX="582.0" layoutY="550.0" mnemonicParsing="false" onAction="#onClickModifierAbonnee" prefHeight="45.0" prefWidth="130.0" text="Modifier" />
+      <Button layoutX="434.0" layoutY="550.0" mnemonicParsing="false" onAction="#onClickSupprimerAbonnee" prefHeight="45.0" prefWidth="130.0" text="Supprimer" />
+      <TextField fx:id="valeurIdentifiant" layoutX="32.0" layoutY="121.0" prefHeight="39.0" prefWidth="216.0" promptText="Identifiant" />
+      <TextField fx:id="valeurPrenom" layoutX="32.0" layoutY="179.0" prefHeight="39.0" prefWidth="216.0" promptText="Prenom" />
+      <TextField fx:id="valeurDateNaissance" layoutX="283.0" layoutY="179.0" prefHeight="39.0" prefWidth="216.0" promptText="Date de naissance" />
+      <TextField fx:id="valeurNom" layoutX="283.0" layoutY="121.0" prefHeight="39.0" prefWidth="216.0" promptText="Nom" />
+      <ComboBox fx:id="statutComboBox" layoutX="532.0" layoutY="179.0" prefHeight="39.0" prefWidth="189.0" />
+      <ComboBox fx:id="roleComboBox" layoutX="532.0" layoutY="121.0" prefHeight="39.0" prefWidth="189.0" />
+      <Button layoutX="555.0" layoutY="234.0" mnemonicParsing="false" onAction="#onClickAjouteAbonnee" prefHeight="45.0" prefWidth="166.0" text="Ajouter" />
       <Separator layoutX="90.0" layoutY="304.0" prefHeight="0.0" prefWidth="602.0" />
 
 

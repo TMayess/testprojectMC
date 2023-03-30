@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="397.0" prefWidth="389.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.popUp.ProlongerDateController">
+    <children>
+        <Pane layoutX="-5.0" layoutY="-1.0" prefHeight="47.0" prefWidth="394.0" style="-fx-background-color: #D5D8DC;">
+            <children>
+                <ImageView fitHeight="32.0" fitWidth="38.0" layoutX="19.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../images/icon-book.png" />
+                    </image>
+                </ImageView>
+                <Label layoutX="59.0" layoutY="14.0" prefHeight="17.0" prefWidth="158.0" text="Prolongation date">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+        <Label layoutX="61.0" layoutY="78.0" text="Identidiant">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="59.0" layoutY="141.0" text="Prenom">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="60.0" layoutY="108.0" text="Nom">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="59.0" layoutY="173.0" text="Date de naissance">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Button fx:id="ajouteExemplaireButton" layoutX="210.0" layoutY="335.0" mnemonicParsing="false" onAction="#onClickAjouteExemplaire" prefHeight="40.0" prefWidth="126.0" text="Valider">
+            <font>
+                <Font size="14.0" />
+            </font></Button>
+        <Button fx:id="annulerButton" layoutX="56.0" layoutY="335.0" mnemonicParsing="false" onAction="#onClickAnnuler" prefHeight="40.0" prefWidth="126.0" text="Annuler">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Button>
+        <Label fx:id="valeurIdentifiant" layoutX="196.0" layoutY="79.0" text="Label" />
+        <Label fx:id="valeurNom" layoutX="196.0" layoutY="109.0" text="Label" />
+        <Label fx:id="valeurPrenom" layoutX="196.0" layoutY="142.0" text="Label" />
+        <Label fx:id="valeurDateNaissance" layoutX="196.0" layoutY="174.0" text="Label" />
+      <Label layoutX="45.0" layoutY="253.0" text="Nouvelle date limite">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="newDateLimiteDatePicker" layoutX="179.0" layoutY="243.0" prefHeight="40.0" prefWidth="158.0" />
+    </children>
+</AnchorPane>

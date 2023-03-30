@@ -13,7 +13,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="753.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.GestionAcquisitionController">
    <children>
-      <TableView fx:id="acquisitionTableView" layoutX="32.0" layoutY="346.0" prefHeight="193.0" prefWidth="690.0">
+      <TableView fx:id="acquisitionTableView" layoutX="42.0" layoutY="346.0" prefHeight="193.0" prefWidth="670.0">
         <columns>
           <TableColumn fx:id="referenceColumn" minWidth="-Infinity" prefWidth="98.0000057220459" text="Réference" />
           <TableColumn fx:id="titreColumn" minWidth="-Infinity" prefWidth="129.3333282470703" text="Titre" />
@@ -32,7 +32,10 @@
          </children>
       </Pane>
       <TextField fx:id="rechercheEdit" layoutX="336.0" layoutY="289.0" prefHeight="39.0" prefWidth="246.0" />
-      <Button fx:id="rechercheButton" layoutX="591.0" layoutY="286.0" mnemonicParsing="false" onAction="#onClickRecherche" prefHeight="45.0" prefWidth="130.0" text="Recherche" />
+      <Button fx:id="rechercheButton" layoutX="591.0" layoutY="286.0" mnemonicParsing="false" onAction="#onClickRecherche" prefHeight="45.0" prefWidth="130.0" text="Recherche">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
       <Label layoutX="32.0" layoutY="299.0" text="Recherche par :">
          <font>
             <Font size="14.0" />
@@ -47,8 +50,14 @@
       <TextField fx:id="titreEdit" layoutX="32.0" layoutY="136.0" prefHeight="39.0" prefWidth="246.0" promptText="Titre" />
       <TextField fx:id="auteurEdit" layoutX="302.0" layoutY="136.0" prefHeight="39.0" prefWidth="246.0" promptText="Auteur" />
       <TextField fx:id="categorieEdit" layoutX="32.0" layoutY="191.0" prefHeight="39.0" prefWidth="246.0" promptText="Catégorie" />
-      <Button fx:id="ajouteButton" layoutX="592.0" layoutY="175.0" mnemonicParsing="false" onAction="#onClickAjouteOuvrage" prefHeight="45.0" prefWidth="130.0" text="Ajouter" />
-      <Button layoutX="568.0" layoutY="549.0" mnemonicParsing="false" onAction="#onClickAjouteExemplaire" prefHeight="45.0" prefWidth="153.0" text="Ajouter exemplaire" />
+      <Button fx:id="ajouteButton" layoutX="591.0" layoutY="168.0" mnemonicParsing="false" onAction="#onClickAjouteOuvrage" prefHeight="45.0" prefWidth="130.0" text="Ajouter">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button layoutX="568.0" layoutY="549.0" mnemonicParsing="false" onAction="#onClickAjouteExemplaire" prefHeight="45.0" prefWidth="153.0" text="Ajouter exemplaire">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
       <Separator layoutX="82.0" layoutY="262.0" prefHeight="0.0" prefWidth="590.0" />
    </children>
 </AnchorPane>

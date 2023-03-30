@@ -1,58 +1,53 @@
 package app.controllers.popUp;
 
+import app.Models.Ouvrage;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.awt.*;
 
 public class ValidationOuvrageController {
     @FXML
-    private Label titreLabel;
+    private Label valeurTitre;
+
     @FXML
-    private Label auteurLabel;
+    private Label valeurAuteur;
     @FXML
-    private Label categorieLabel;
+    private Label valeurCategorie;
     @FXML
-    private Label rayonLabel;
+    private Label valeurRayon;
     @FXML
     private Button confirmerButton;
     @FXML
     private Button annulerButton;
 
-    private Stage stage;
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
-    public void setTitreLabel(String titre) {
-        this.titreLabel.setText(titre);
-    }
-
-    public void setAuteurLabel(String auteur) {
-        this.auteurLabel.setText(auteur);
-    }
-
-    public void setCategorieLabel(String categorie) {
-        this.categorieLabel.setText(categorie);
-    }
-
-    public void setRayonLabel(String rayon) {
-        this.rayonLabel.setText(rayon);
-    }
-
     @FXML
-    public void onClickConfirmer() {
-        System.out.println("quiiiiiiiiiiiiiiiii");
+    private Button closeButton;
+
+
+
+    public void setOuvrage(Ouvrage ouvrage){
+        valeurTitre.setText(ouvrage.titre);
+        valeurAuteur.setText(ouvrage.auteur);
+        valeurCategorie.setText(ouvrage.categorie);
+
     }
 
-    @FXML
-    public void onClickAnnuler() {
-        new Stage().close();
-        if (stage != null) {
-            stage.close();
-        } else {
-            System.err.println("La variable 'stage' n'a pas été initialisée !");
-        }
+
+
+    public void onClickAnnuler(ActionEvent actionEvent) {
+        Node  source = (Node)  actionEvent.getSource();
+        Stage stage  = (Stage) source.getScene().getWindow();
+        stage.close();
+
+    }
+
+    public void onClickConfirmer(ActionEvent actionEvent) {
+        Node  source = (Node)  actionEvent.getSource();
+        Stage stage  = (Stage) source.getScene().getWindow();
+        stage.close();
     }
 }

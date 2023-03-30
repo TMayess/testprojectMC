@@ -1,7 +1,7 @@
 package app.controllers;
 
-import app.Models.Emprunt;
 import app.Models.Ouvrage;
+import app.controllers.popUp.AjouteExemplaireController;
 import app.controllers.popUp.ValidationOuvrageController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,19 +13,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+
 
 public class GestionAcquisitionController implements Initializable {
 
@@ -38,7 +34,7 @@ public class GestionAcquisitionController implements Initializable {
     public Button ajouteButton;
     @FXML
     private ComboBox rechercheAvecComboBox;
-    private final String[] RECHERCHEPAR_ITEM = {"tout", "Réference", "Titre" ,"Auteur","Catégorie","Exemplaire" };
+    private final String[] RECHERCHEPAR_ITEM = {"Tout", "Réference", "Titre" ,"Auteur","Catégorie","Exemplaire" };
     private final ObservableList<String> RECHERCHEPAR_LIST = FXCollections.observableArrayList(RECHERCHEPAR_ITEM);
 
     @FXML
@@ -60,7 +56,7 @@ public class GestionAcquisitionController implements Initializable {
     @FXML
     private TableColumn<Ouvrage, String> exemplaireColumn;
     private ObservableList<Ouvrage> ouvrageList = FXCollections.observableArrayList();
-
+    private Ouvrage exemplaire = null;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -75,11 +71,23 @@ public class GestionAcquisitionController implements Initializable {
         exemplaireColumn.setCellValueFactory(new PropertyValueFactory<>("Exemplaire"));
 
 
-        ouvrageList.add(new Ouvrage("a", "Harry Potter", "moi","zeaea","jbeaze"));
-        ouvrageList.add(new Ouvrage("b", "Harry Potter", "moi","zeaea","jbeaze"));
-        ouvrageList.add(new Ouvrage("c", "Harry Potter", "moi","zeaea","jbeaze"));
+        ouvrageList.add(new Ouvrage("a", "Harry Potter", "moie","zeaea","jbeaze"));
+        ouvrageList.add(new Ouvrage("b", "Harry Potter", "mozi","zeaea","jbeaze"));
+        ouvrageList.add(new Ouvrage("c", "Harry Potter", "maoi","zeaea","jbeaze"));
 
         acquisitionTableView.setItems(ouvrageList);
+
+
+        acquisitionTableView.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) {
+                Ouvrage ouvrage = acquisitionTableView.getSelectionModel().getSelectedItem();
+
+                if (ouvrage != null) {
+                    exemplaire = ouvrage;
+                    System.out.println(exemplaire.auteur + " ");
+                }
+            }
+        });
 
 
     }
@@ -92,7 +100,7 @@ public class GestionAcquisitionController implements Initializable {
 
         ObservableList<Ouvrage> filteredList = FXCollections.observableArrayList();
 
-        if(selectedItem.equals("tout")) {
+        if(selectedItem.equals("Tout")) {
             filteredList.addAll(ouvrageList.filtered(ouvrage ->
                     ouvrage.getReference().toLowerCase().contains(searchText.toLowerCase()) ||
                             ouvrage.getTitre().toLowerCase().contains(searchText.toLowerCase()) ||
@@ -125,40 +133,90 @@ public class GestionAcquisitionController implements Initializable {
         acquisitionTableView.setItems(filteredList);
 
     }
-@FXML
+    @FXML
     public void onClickAjouteOuvrage(ActionEvent actionEvent) {
-        // Création d'un objet Ouvrage à ajouter
-        Ouvrage ouvrage = new Ouvrage("Titre de l'ouvrage", "Auteur de l'ouvrage", "Catégorie de l'ouvrage", "Rayon de l'ouvrage","ddd");
 
-        try {
-            // Chargement de la vue FXML de la popup
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/views/popUp/popUp_ValidationOuvrage.fxml"));
-            Parent root = loader.load();
+        if (verifieEditNonVide()) {
+            Ouvrage ouvrage = new Ouvrage(null, titreEdit.getText(), auteurEdit.getText(), rayonEdit.getText(),null);
 
-            // Création d'une instance du contrôleur associé à la vue FXML de la popup
-            ValidationOuvrageController controller = loader.getController();
+            try {
 
-            // Création d'une nouvelle fenêtre (Stage) pour la popup
-            Stage popupStage = new Stage();
-            Scene scene = new Scene(root);
-            popupStage.setScene(scene);
-            popupStage.initModality(Modality.APPLICATION_MODAL);
-            popupStage.initStyle(StageStyle.UNDECORATED);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/views/popUp/popUp_ValidationOuvrage.fxml"));
+                Parent root = loader.load();
 
-            // Affichage de la popup de manière modale
-            popupStage.showAndWait();
+                ValidationOuvrageController controller = loader.getController();
+                controller.setOuvrage(ouvrage);
 
-            // Passage des données de l'ouvrage au contrôleur de la popup
-            controller.setTitreLabel(ouvrage.getTitre());
-            controller.setAuteurLabel(ouvrage.getAuteur());
-            controller.setCategorieLabel(ouvrage.getCategorie());
-            controller.setStage(popupStage);
+                Stage popupStage = new Stage();
+                Scene scene = new Scene(root);
+                popupStage.setScene(scene);
+                popupStage.initModality(Modality.APPLICATION_MODAL);
+                popupStage.initStyle(StageStyle.UNDECORATED);
 
-        } catch (IOException e) {
-            e.printStackTrace();
+                popupStage.showAndWait();
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void onClickAjouteExemplaire(ActionEvent actionEvent) {
+        if(exemplaire != null){
+            try {
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/views/popUp/popUp_ajouteExemplaire.fxml"));
+                Parent root = loader.load();
+
+                AjouteExemplaireController controller = loader.getController();
+                controller.setOuvrage(exemplaire);
+
+                Stage popupStage = new Stage();
+                Scene scene = new Scene(root);
+                popupStage.setScene(scene);
+                popupStage.initModality(Modality.APPLICATION_MODAL);
+                popupStage.initStyle(StageStyle.UNDECORATED);
+
+                popupStage.showAndWait();
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
+
+
+    public Boolean verifieEditNonVide(){
+
+        if (titreEdit.getText().isEmpty()){
+            return false;
+        }else if(auteurEdit.getText().isEmpty()){
+            return false;
+        }else if(categorieEdit.getText().isEmpty()){
+            return false;
+        }else if(rayonEdit.getText().isEmpty()){
+            return false;
+        }
+        return true;
+    }
+   /* public void verifieEditNonVideStyle(){
+        if (titreEdit.getText().isEmpty()){
+            titreEdit.setStyle("-fx-effect: dropshadow(three-pass-box, red, 10, 0, 0, 0);");
+        }
+        if(auteurEdit.getText().isEmpty()) {
+            titreEdit.setStyle("-fx-effect: dropshadow(three-pass-box, red, 10, 0, 0, 0);");
+        }
+        if(categorieEdit.getText().isEmpty()){
+            titreEdit.setStyle("-fx-effect: dropshadow(three-pass-box, red, 10, 0, 0, 0);");
+
+        }
+        if(rayonEdit.getText().isEmpty()){
+            titreEdit.setStyle("-fx-effect: dropshadow(three-pass-box, red, 10, 0, 0, 0);");
+
+        }else {
+        }
+
+    }*/
 }

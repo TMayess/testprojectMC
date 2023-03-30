@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -18,8 +19,10 @@ import java.util.logging.Logger;
 
 public class MainGestionnaireController implements Initializable {
 
-
-
+    @FXML
+    public ToggleButton gestionAbonneButton;
+    @FXML
+    public ToggleButton gestionSanctionButton;
     @FXML
     private Button closeButton;
 
@@ -34,9 +37,22 @@ public class MainGestionnaireController implements Initializable {
 
 
 
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadPage("gestionAbonnees");
+
+        gestionAbonneButton.setOnAction(e -> {
+            gestionSanctionButton.setSelected(false);
+            loadPage("gestionAbonnees");
+        });
+        gestionSanctionButton.setOnAction(e -> {
+            gestionAbonneButton.setSelected(false);
+            loadPage("gestionSanctions");
+        });
+
+        gestionAbonneButton.setSelected(true);
 
     }
 
@@ -50,14 +66,6 @@ public class MainGestionnaireController implements Initializable {
         bp.setCenter(root);
     }
 
-    @FXML
-    public void onClickGestionSanction(ActionEvent actionEvent) {
-        loadPage("gestionSanctions");
-    }
-    @FXML
-    public void onClickGestionAbonnees(ActionEvent actionEvent) {
-        loadPage("gestionAbonnees");
-    }
 
 
 

@@ -53,6 +53,7 @@ public class GestionRapportController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         empruntJour_datePick.setValue(LocalDate.now());
 
         codeColumn.setCellValueFactory(new PropertyValueFactory<>("code"));
@@ -64,13 +65,48 @@ public class GestionRapportController implements Initializable {
 
         empruntList.add(new Emprunt("a", "mayess", "Harry Potter", LocalDate.of(2022, 1, 10), LocalDate.of(2022, 1, 25)));
         empruntList.add(new Emprunt("b", "yanis", "blacklist", LocalDate.of(2022, 1, 10), LocalDate.of(2022, 1, 25)));
-        empruntList.add(new Emprunt("c", "autre", "suuiiiiii", LocalDate.of(2022, 1, 10), LocalDate.of(2022, 1, 25)));
+        empruntList.add(new Emprunt("c", "autre", "suuiiiiii", LocalDate.of(2022, 1, 11), LocalDate.of(2022, 1, 25)));
+        empruntList.add(new Emprunt("c", "autre", "suuiiiiii", LocalDate.of(2022, 1, 12), LocalDate.of(2022, 1, 25)));
+        empruntList.add(new Emprunt("c", "autre", "suuiiiiii", LocalDate.of(2022, 1, 12), LocalDate.of(2022, 1, 25)));
+
 
         rapportTableView.setItems(empruntList);
 
     }
 
     public void onClickImprimeTout(ActionEvent actionEvent) {
+
+    }
+
+
+
+
+
+
+
+    public void onClickImprimeJour(ActionEvent actionEvent) {
+    }
+
+
+    public void onClickRecherche(ActionEvent actionEvent) {
+        LocalDate dateEmprunt = empruntJour_datePick.getValue();
+        System.out.println("Date sélectionnée : " + dateEmprunt);
+        String searchText = dateEmprunt.toString();
+
+        ObservableList<Emprunt> filteredList = FXCollections.observableArrayList();
+        filteredList.addAll(empruntList.filtered(emprunt ->
+                emprunt.getDateEmprunt().toString().toLowerCase().contains(searchText.toLowerCase())
+        ));
+        rapportTableView.setItems(filteredList);
+
+
+
+    }
+
+    public void onClickEnregistreTout(ActionEvent actionEvent) {
+    }
+
+    public void onClickEnregistreJour(ActionEvent actionEvent) {
         Document document = new Document(PageSize.A4, 50, 50, 50, 50);
 
         try {
@@ -125,19 +161,6 @@ public class GestionRapportController implements Initializable {
             e.printStackTrace();
         }
     }
-
-
-
-
-
-
-
-    public void onClickImprimeJour(ActionEvent actionEvent) {
-        LocalDate dateEmprunt = empruntJour_datePick.getValue();
-        System.out.println("Date sélectionnée : " + dateEmprunt);
-    }
-
-
 }
 
 

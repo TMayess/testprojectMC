@@ -1,14 +1,22 @@
 package app.controllers;
 
 import app.Models.Emprunt;
+import app.controllers.popUp.ValidationRestitutionController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -40,6 +48,8 @@ public class GestionRestitutionController implements Initializable {
     private TableColumn<Emprunt, String> dateLimiteColumn;
     private ObservableList<Emprunt> empruntList = FXCollections.observableArrayList();
 
+    public Emprunt emprunt = null;
+
 
 
 
@@ -61,6 +71,17 @@ public class GestionRestitutionController implements Initializable {
         empruntList.add(new Emprunt("c", "autre", "suuiiiiii", LocalDate.of(2022, 1, 10), LocalDate.of(2022, 1, 25)));
 
         restitutionTableView.setItems(empruntList);
+
+        restitutionTableView.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) {
+                Emprunt emprunt1 = restitutionTableView.getSelectionModel().getSelectedItem();
+
+                if (emprunt1 != null) {
+                    emprunt = emprunt1;
+                }
+            }
+        });
+
 
     }
 
@@ -103,6 +124,31 @@ public class GestionRestitutionController implements Initializable {
 
         restitutionTableView.setItems(filteredList);
 
+    }
+
+    public void onClickRendreEmprunt(ActionEvent actionEvent) {
+        if(emprunt != null){
+            try {
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/views/popUp/popUp_validationRestitution.fxml"));
+                Parent root = loader.load();
+
+                ValidationRestitutionController controller = loader.getController();
+                controller.setEmprunt(emprunt);
+
+                Stage popupStage = new Stage();
+                Scene scene = new Scene(root);
+                popupStage.setScene(scene);
+                popupStage.initModality(Modality.APPLICATION_MODAL);
+                popupStage.initStyle(StageStyle.UNDECORATED);
+
+                popupStage.showAndWait();
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
 

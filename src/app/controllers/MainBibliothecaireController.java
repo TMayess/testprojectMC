@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -19,8 +20,12 @@ import java.util.logging.Logger;
 
 public class MainBibliothecaireController implements Initializable {
 
-
-
+    @FXML
+    public ToggleButton gestionRapportButton;
+    @FXML
+    public ToggleButton gestionEmpruntButton;
+    @FXML
+    public ToggleButton gestionAcquisitionButton;
     @FXML
     private Button closeButton;
 
@@ -32,7 +37,7 @@ public class MainBibliothecaireController implements Initializable {
 
 
     @FXML
-    private  Button restitutionButton;
+    private ToggleButton gestionRestitutionButton;
 
     
 
@@ -41,6 +46,35 @@ public class MainBibliothecaireController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         loadPage("gestionEmprunts");
+
+        gestionEmpruntButton.setOnAction(e -> {
+            gestionRestitutionButton.setSelected(false);
+            gestionRapportButton.setSelected(false);
+            gestionAcquisitionButton.setSelected(false);
+            loadPage("gestionEmprunts");
+        });
+        gestionRestitutionButton.setOnAction(e -> {
+            gestionEmpruntButton.setSelected(false);
+            gestionRapportButton.setSelected(false);
+            gestionAcquisitionButton.setSelected(false);
+            loadPage("gestionRestitution");
+        });
+        gestionRapportButton.setOnAction(e -> {
+            gestionEmpruntButton.setSelected(false);
+            gestionRestitutionButton.setSelected(false);
+            gestionAcquisitionButton.setSelected(false);
+            loadPage("gestionRapports");
+        });
+        gestionAcquisitionButton.setOnAction(e -> {
+            gestionEmpruntButton.setSelected(false);
+            gestionRestitutionButton.setSelected(false);
+            gestionRapportButton.setSelected(false);
+            loadPage("gestionAcquisitions");
+        });
+
+
+
+        gestionEmpruntButton.setSelected(true);
 
 
     }
@@ -57,30 +91,13 @@ public class MainBibliothecaireController implements Initializable {
 
 
 
-    @FXML
-    public void onClickGestionAcquisitions(ActionEvent actionEvent) {
-        loadPage("gestionAcquisitions");
-    }
-    @FXML
-    public void onClickGestionRapports(ActionEvent actionEvent) {
-        loadPage("gestionRapports");
-    }
-
-    @FXML
-    public void onClickGestionEmprunts(ActionEvent actionEvent) {
-        loadPage("gestionEmprunts");
-    }
-
-    @FXML
-    public void onClickGestionRestitutions(ActionEvent actionEvent) {
-        loadPage("gestionRestitution");
-    }
 
 
     public void onClickClose(ActionEvent actionEvent) {
         closeButton.setOnMouseClicked((MouseEvent event) -> {
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();
+
         });
     }
 

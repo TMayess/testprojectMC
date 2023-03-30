@@ -12,7 +12,7 @@
     -fx-background-color: #2E4053;
     -fx-text-fill: #fff;
 }
-.button2:focused {
+.button2:selected {
     -fx-background-color: #2E4053;
     -fx-text-fill: #fff;
     -fx-border-color: #FFF;
