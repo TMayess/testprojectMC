@@ -31,11 +31,14 @@
         </Label>
         <ComboBox fx:id="rechercheComboBox" layoutX="137.0" layoutY="159.0" prefHeight="39.0" prefWidth="189.0" />
       <TableView fx:id="sanctionTableView" layoutX="42.0" layoutY="225.0" prefHeight="312.0" prefWidth="670.0">
-        <columns>
-            <TableColumn fx:id="identifiantColumn" prefWidth="134.66666221618652" text="Identifiant" />
-            <TableColumn fx:id="nomColumn" prefWidth="120.66667175292969" text="Nom" />
-            <TableColumn fx:id="prenomColumn" prefWidth="100.66668701171875" text="Prenom" />
-        </columns>
+          <columns>
+              <TableColumn fx:id="identifiantColumn" prefWidth="123.33331680297852" text="Identifiant" />
+              <TableColumn fx:id="nomColumn" prefWidth="113.99998474121094" text="Nom" />
+              <TableColumn fx:id="prenomColumn" prefWidth="116.6666259765625" text="Prenom" />
+              <TableColumn fx:id="dateNaissanceColumn" prefWidth="133.33334350585938" text="Date de Naissance" />
+              <TableColumn fx:id="roleColumn" prefWidth="77.33331298828125" text="Role" />
+              <TableColumn fx:id="statutColumn" prefWidth="86.66668701171875" text="Statut" />
+          </columns>
       </TableView>
       <Label layoutX="34.0" layoutY="110.0" text="Liste des abonnees qui en dépasser la date limite">
          <font>

@@ -12,7 +12,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.initStyle(StageStyle.UNDECORATED);
-        Parent root = FXMLLoader.load(getClass().getResource("views/mainGestionnaire.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("views/mainBibliothecaire.fxml"));
 
         root.setOnMousePressed(event -> {
             x = event.getSceneX();

@@ -57,17 +57,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="enregistreToutButton" layoutX="444.0" layoutY="110.0" mnemonicParsing="false" onAction="#onClickEnregistreTout" prefHeight="45.0" prefWidth="130.0" text="Enregistrer">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
       <Separator layoutX="95.0" layoutY="186.0" prefHeight="0.0" prefWidth="561.0" />
-      <Button fx:id="enregistreJourButton" layoutX="444.0" layoutY="537.0" mnemonicParsing="false" onAction="#onClickEnregistreJour" prefHeight="45.0" prefWidth="130.0" text="Enregistrer">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
 
     </children>
 </AnchorPane>

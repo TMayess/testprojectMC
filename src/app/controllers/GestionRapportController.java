@@ -85,28 +85,7 @@ public class GestionRapportController implements Initializable {
 
 
     public void onClickImprimeJour(ActionEvent actionEvent) {
-    }
 
-
-    public void onClickRecherche(ActionEvent actionEvent) {
-        LocalDate dateEmprunt = empruntJour_datePick.getValue();
-        System.out.println("Date sélectionnée : " + dateEmprunt);
-        String searchText = dateEmprunt.toString();
-
-        ObservableList<Emprunt> filteredList = FXCollections.observableArrayList();
-        filteredList.addAll(empruntList.filtered(emprunt ->
-                emprunt.getDateEmprunt().toString().toLowerCase().contains(searchText.toLowerCase())
-        ));
-        rapportTableView.setItems(filteredList);
-
-
-
-    }
-
-    public void onClickEnregistreTout(ActionEvent actionEvent) {
-    }
-
-    public void onClickEnregistreJour(ActionEvent actionEvent) {
         Document document = new Document(PageSize.A4, 50, 50, 50, 50);
 
         try {
@@ -118,16 +97,12 @@ public class GestionRapportController implements Initializable {
             File file = fileChooser.showSaveDialog(stage);
 
             if (file != null) {
-                // Créer le writer pour écrire dans le document
                 PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
 
-                // Ouvrir le document
                 document.open();
 
-                // Ajouter un titre
                 document.addTitle("Table");
 
-                // Créer une table avec autant de colonnes que la TableView
                 PdfPTable pdfTable = new PdfPTable(rapportTableView.getColumns().size());
 
                 // Ajouter les entêtes de colonnes
@@ -161,6 +136,24 @@ public class GestionRapportController implements Initializable {
             e.printStackTrace();
         }
     }
+
+
+    public void onClickRecherche(ActionEvent actionEvent) {
+        LocalDate dateEmprunt = empruntJour_datePick.getValue();
+        System.out.println("Date sélectionnée : " + dateEmprunt);
+        String searchText = dateEmprunt.toString();
+
+        ObservableList<Emprunt> filteredList = FXCollections.observableArrayList();
+        filteredList.addAll(empruntList.filtered(emprunt ->
+                emprunt.getDateEmprunt().toString().toLowerCase().contains(searchText.toLowerCase())
+        ));
+        rapportTableView.setItems(filteredList);
+
+
+
+    }
+
+
 }
 
 

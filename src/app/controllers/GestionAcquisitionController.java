@@ -102,7 +102,7 @@ public class GestionAcquisitionController implements Initializable {
 
         if(selectedItem.equals("Tout")) {
             filteredList.addAll(ouvrageList.filtered(ouvrage ->
-                    ouvrage.getReference().toLowerCase().contains(searchText.toLowerCase()) ||
+                    ouvrage.getIdentifiant().toLowerCase().contains(searchText.toLowerCase()) ||
                             ouvrage.getTitre().toLowerCase().contains(searchText.toLowerCase()) ||
                             ouvrage.getAuteur().toLowerCase().contains(searchText.toLowerCase()) ||
                             ouvrage.getCategorie().toLowerCase().contains(searchText.toLowerCase()) ||
@@ -110,7 +110,7 @@ public class GestionAcquisitionController implements Initializable {
             ));
         } else if(selectedItem.equals("Réference")) {
             filteredList.addAll(ouvrageList.filtered(ouvrage ->
-                    ouvrage.getReference().toLowerCase().contains(searchText.toLowerCase())
+                    ouvrage.getIdentifiant().toLowerCase().contains(searchText.toLowerCase())
             ));
         } else if(selectedItem.equals("Titre")) {
             filteredList.addAll(ouvrageList.filtered(ouvrage ->

@@ -7,6 +7,45 @@ public class Abonnee {
     private String nom;
     private String prenom;
     private LocalDate dateNaissance;
+    private String statut;
+
+
+    public Abonnee(String identifiant, String nom, String prenom, LocalDate dateNaissance, String statut, String role) {
+        this.identifiant = identifiant;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateNaissance = dateNaissance;
+        this.statut = statut;
+        this.role = role;
+    }
+
+    public Abonnee(String identifiant, String nom, String prenom, LocalDate dateNaissance) {
+        this.identifiant = identifiant;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateNaissance = dateNaissance;
+        this.statut = null;
+        this.role = null;
+    }
+
+    public String getStatut() {
+        return statut;
+    }
+
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    private String role;
+
 
 
     public String getIdentifiant() {

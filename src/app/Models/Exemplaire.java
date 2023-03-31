@@ -2,10 +2,10 @@ package app.Models;
 
 public class Exemplaire {
     private String reference;
-    private String codeRayon;
+    private String rangee;
 
     public Exemplaire(String reference, String codeRayon) {
         this.reference = reference;
-        this.codeRayon = codeRayon;
+        this.rangee = codeRayon;
     }
 }
