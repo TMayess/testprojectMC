@@ -45,6 +45,8 @@ public class MainBibliothecaireController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
+
         loadPage("gestionEmprunts");
 
         gestionEmpruntButton.setOnAction(e -> {
@@ -83,6 +85,7 @@ public class MainBibliothecaireController implements Initializable {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("/app/views/"+ namePage +".fxml"));
+
         } catch (IOException e) {
             Logger.getLogger(MainBibliothecaireController.class.getName()).log(Level.SEVERE, null, e);
         }

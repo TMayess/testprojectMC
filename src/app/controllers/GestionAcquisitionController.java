@@ -1,5 +1,7 @@
 package app.controllers;
 
+import app.ConnectionDataBase;
+import app.Models.AlerteDialoguePerso;
 import app.Models.Ouvrage;
 import app.controllers.popUp.AjouteExemplaireController;
 import app.controllers.popUp.ValidationOuvrageController;
@@ -19,6 +21,10 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 
@@ -34,9 +40,8 @@ public class GestionAcquisitionController implements Initializable {
     public Button ajouteButton;
     @FXML
     private ComboBox rechercheAvecComboBox;
-    private final String[] RECHERCHEPAR_ITEM = {"Tout", "Réference", "Titre" ,"Auteur","Catégorie","Exemplaire" };
+    private final String[] RECHERCHEPAR_ITEM = {"Tout", "Identifiant", "Titre" ,"Auteur","Catégorie","rayon" };
     private final ObservableList<String> RECHERCHEPAR_LIST = FXCollections.observableArrayList(RECHERCHEPAR_ITEM);
-
     @FXML
     private TextField rechercheEdit;
 
@@ -46,15 +51,13 @@ public class GestionAcquisitionController implements Initializable {
     private TableView<Ouvrage> acquisitionTableView;
 
     @FXML
-    private TableColumn<Ouvrage, String> referenceColumn;
+    private TableColumn<Ouvrage, String> identifiantColumn;
     @FXML
     private TableColumn<Ouvrage, String> titreColumn;
     @FXML
     private TableColumn<Ouvrage, String> auteurColumn;
     @FXML
-    private TableColumn<Ouvrage, String> categorieColumn;
-    @FXML
-    private TableColumn<Ouvrage, String> exemplaireColumn;
+    private TableColumn<Ouvrage, String> rayonColumn;
     private ObservableList<Ouvrage> ouvrageList = FXCollections.observableArrayList();
     private Ouvrage exemplaire = null;
 
@@ -64,39 +67,46 @@ public class GestionAcquisitionController implements Initializable {
         rechercheAvecComboBox.setItems(RECHERCHEPAR_LIST);
         rechercheAvecComboBox.setValue(RECHERCHEPAR_ITEM[0]);
 
-        referenceColumn.setCellValueFactory(new PropertyValueFactory<>("Reference"));
-        titreColumn.setCellValueFactory(new PropertyValueFactory<>("Titre"));
-        auteurColumn.setCellValueFactory(new PropertyValueFactory<>("Auteur"));
-        categorieColumn.setCellValueFactory(new PropertyValueFactory<>("Categorie"));
-        exemplaireColumn.setCellValueFactory(new PropertyValueFactory<>("Exemplaire"));
+            ConnectionDataBase connexion = new ConnectionDataBase();
+            Connection conn = connexion.conn;
 
+            identifiantColumn.setCellValueFactory(new PropertyValueFactory<>("Identifiant"));
+            titreColumn.setCellValueFactory(new PropertyValueFactory<>("Titre"));
+            auteurColumn.setCellValueFactory(new PropertyValueFactory<>("Auteur"));
+            rayonColumn.setCellValueFactory(new PropertyValueFactory<>("Rayon"));
 
-        ouvrageList.add(new Ouvrage("a", "Harry Potter", "moie","zeaea","jbeaze"));
-        ouvrageList.add(new Ouvrage("b", "Harry Potter", "mozi","zeaea","jbeaze"));
-        ouvrageList.add(new Ouvrage("c", "Harry Potter", "maoi","zeaea","jbeaze"));
+        try {
+            String sql = "SELECT * FROM ouvrage";
+            Statement stmt = conn.createStatement();
 
-        acquisitionTableView.setItems(ouvrageList);
+            ResultSet rs = stmt.executeQuery(sql);
 
-
-        acquisitionTableView.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 1) {
-                Ouvrage ouvrage = acquisitionTableView.getSelectionModel().getSelectedItem();
-
-                if (ouvrage != null) {
-                    exemplaire = ouvrage;
-                    System.out.println(exemplaire.auteur + " ");
-                }
+            while (rs.next()) {
+                Ouvrage ouvrage = new Ouvrage( rs.getString("idOuvrage"),rs.getString("Titre"), rs.getString("Auteur"), rs.getString("rayon"));
+                ouvrageList.add(ouvrage);
             }
-        });
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+           acquisitionTableView.setItems(ouvrageList);
 
+            acquisitionTableView.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1) {
+                    Ouvrage ouvrage = acquisitionTableView.getSelectionModel().getSelectedItem();
 
+                    if (ouvrage != null) {
+                        exemplaire = ouvrage;
+                    }
+                }
+            });
     }
-
 
     public void onClickRecherche(ActionEvent actionEvent) {
         String selectedItem = (String) rechercheAvecComboBox.getSelectionModel().getSelectedItem();
         String searchText = rechercheEdit.getText();
-        System.out.println("Recherche effectuée avec : " + selectedItem + " et " + searchText);
 
         ObservableList<Ouvrage> filteredList = FXCollections.observableArrayList();
 
@@ -105,10 +115,9 @@ public class GestionAcquisitionController implements Initializable {
                     ouvrage.getIdentifiant().toLowerCase().contains(searchText.toLowerCase()) ||
                             ouvrage.getTitre().toLowerCase().contains(searchText.toLowerCase()) ||
                             ouvrage.getAuteur().toLowerCase().contains(searchText.toLowerCase()) ||
-                            ouvrage.getCategorie().toLowerCase().contains(searchText.toLowerCase()) ||
-                            ouvrage.getExemplaire().toLowerCase().contains(searchText.toLowerCase())
+                            ouvrage.getRayon().toLowerCase().contains(searchText.toLowerCase())
             ));
-        } else if(selectedItem.equals("Réference")) {
+        } else if(selectedItem.equals("Identifiant")) {
             filteredList.addAll(ouvrageList.filtered(ouvrage ->
                     ouvrage.getIdentifiant().toLowerCase().contains(searchText.toLowerCase())
             ));
@@ -120,14 +129,12 @@ public class GestionAcquisitionController implements Initializable {
             filteredList.addAll(ouvrageList.filtered(ouvrage ->
                     ouvrage.getAuteur().toLowerCase().contains(searchText.toLowerCase())
             ));
-        } else if(selectedItem.equals("Catégorie")) {
+
+        } else if(selectedItem.equals("Rayon")) {
             filteredList.addAll(ouvrageList.filtered(ouvrage ->
-                    ouvrage.getCategorie().toLowerCase().contains(searchText.toLowerCase())
+                    ouvrage.getRayon().toLowerCase().contains(searchText.toLowerCase())
             ));
-        } else if(selectedItem.equals("Exemplaire")) {
-            filteredList.addAll(ouvrageList.filtered(ouvrage ->
-                    ouvrage.getExemplaire().toLowerCase().contains(searchText.toLowerCase())
-            ));
+
         }
 
         acquisitionTableView.setItems(filteredList);
@@ -136,11 +143,16 @@ public class GestionAcquisitionController implements Initializable {
     @FXML
     public void onClickAjouteOuvrage(ActionEvent actionEvent) {
 
+
+
         if (verifieEditNonVide()) {
-            Ouvrage ouvrage = new Ouvrage(null, titreEdit.getText(), auteurEdit.getText(), rayonEdit.getText(),null);
+            String titre = titreEdit.getText().toString();
+            String auteur  = auteurEdit.getText().toString();
+            String rayon = rayonEdit.getText().toString();
+
+            Ouvrage ouvrage = new Ouvrage(titre,auteur,rayon);
 
             try {
-
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/views/popUp/popUp_ValidationOuvrage.fxml"));
                 Parent root = loader.load();
 
@@ -155,11 +167,14 @@ public class GestionAcquisitionController implements Initializable {
 
                 popupStage.showAndWait();
 
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }else {
+            AlerteDialoguePerso alert = new AlerteDialoguePerso("Erreur","Vous devez remplir tous les informations de l'ouvrage.");
+            alert.create();
         }
+
     }
 
     public void onClickAjouteExemplaire(ActionEvent actionEvent) {
@@ -184,39 +199,43 @@ public class GestionAcquisitionController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }else {
+            AlerteDialoguePerso alert = new AlerteDialoguePerso("Erreur", "Selctionné les ouvrages auxquels vous souhaitez ajouter des exemplaires.");
+            alert.create();
         }
     }
 
 
     public Boolean verifieEditNonVide(){
 
+        String style = "-fx-border-color: red";
+        String defaultStyle = "-fx-border-color: -fx-box-border;";
+        boolean nonVide = true;
+
         if (titreEdit.getText().isEmpty()){
-            return false;
-        }else if(auteurEdit.getText().isEmpty()){
-            return false;
-        }else if(categorieEdit.getText().isEmpty()){
-            return false;
-        }else if(rayonEdit.getText().isEmpty()){
-            return false;
+            titreEdit.setStyle(style);
+            nonVide = false;
+        } else {
+            titreEdit.setStyle(defaultStyle);
         }
-        return true;
+
+        if (auteurEdit.getText().isEmpty()){
+            auteurEdit.setStyle(style);
+            nonVide = false;
+        } else {
+            auteurEdit.setStyle(defaultStyle);
+        }
+
+
+
+        if (rayonEdit.getText().isEmpty()){
+            rayonEdit.setStyle(style);
+            nonVide = false;
+        } else {
+            rayonEdit.setStyle(defaultStyle);
+        }
+
+        return nonVide;
     }
-   /* public void verifieEditNonVideStyle(){
-        if (titreEdit.getText().isEmpty()){
-            titreEdit.setStyle("-fx-effect: dropshadow(three-pass-box, red, 10, 0, 0, 0);");
-        }
-        if(auteurEdit.getText().isEmpty()) {
-            titreEdit.setStyle("-fx-effect: dropshadow(three-pass-box, red, 10, 0, 0, 0);");
-        }
-        if(categorieEdit.getText().isEmpty()){
-            titreEdit.setStyle("-fx-effect: dropshadow(three-pass-box, red, 10, 0, 0, 0);");
 
-        }
-        if(rayonEdit.getText().isEmpty()){
-            titreEdit.setStyle("-fx-effect: dropshadow(three-pass-box, red, 10, 0, 0, 0);");
-
-        }else {
-        }
-
-    }*/
 }

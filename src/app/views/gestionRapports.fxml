@@ -10,10 +10,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="753.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.GestionRapportController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="686.0" prefWidth="861.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.GestionRapportController">
     <children>
 
-        <Pane prefHeight="74.0" prefWidth="753.0" style="-fx-background-color: #AEB6BF;">
+        <Pane prefHeight="74.0" prefWidth="861.0" style="-fx-background-color: #AEB6BF;">
             <children>
                 <Label layoutX="42.0" layoutY="20.0" text="Gestion des rapports" textFill="#212f3c">
                     <font>
@@ -22,37 +22,49 @@
                 </Label>
             </children>
         </Pane>
-        <TableView fx:id="rapportTableView" layoutX="42.0" layoutY="271.0" prefHeight="250.0" prefWidth="670.0">
+        <TableView fx:id="rapportTableView" layoutX="14.0" layoutY="278.0" prefHeight="315.0" prefWidth="831.0">
             <columns>
-                <TableColumn fx:id="codeColumn" prefWidth="100.0" text="Code" />
-                <TableColumn fx:id="abonneColumn" prefWidth="150.0" text="Abonné(e)" />
-                <TableColumn fx:id="titreColumn" prefWidth="150.0" text="Titre d'ouvrage" />
-                <TableColumn fx:id="dateEmpruntColumn" prefWidth="100.0" text="Date d'emprunt" />
-                <TableColumn fx:id="dateLimiteColumn" prefWidth="100.0" text="Date limite" />
+                <TableColumn fx:id="codeColumn" prefWidth="74.66669082641602" text="Code" />
+                <TableColumn fx:id="dateEmpruntColumn" prefWidth="95.33333587646484" text="Date d'emprunt" />
+                <TableColumn fx:id="heureColumn" prefWidth="78.66670227050781" text="Heure" />
+                <TableColumn fx:id="dateLimiteColumn" prefWidth="89.33331298828125" text="Date limite" />
+                <TableColumn fx:id="abonneColumn" prefWidth="251.99996948242188" text="Abonné(e)">
+                    <columns>
+                        <TableColumn fx:id="identifiantAbonneColumn" prefWidth="75.0" text="Identifiant" />
+                        <TableColumn fx:id="nomAbonneColumn" prefWidth="75.0" text="Nom" />
+                        <TableColumn fx:id="prenomAbonneColumn" prefWidth="75.0" text="Prenom" />
+                    </columns></TableColumn>
+                <TableColumn prefWidth="178.66668701171875" text="Exemplaire">
+                    <columns>
+                        <TableColumn fx:id="ref1Column" prefWidth="75.0" text="Ref(1)" />
+                        <TableColumn fx:id="ref2Column" prefWidth="75.0" text="Ref(2)" />
+                        <TableColumn fx:id="ref3Column" prefWidth="75.0" text="Ref(3)" />
+                    </columns>
+                </TableColumn>
             </columns>
         </TableView>
-      <Button fx:id="imprimeToutButton" layoutX="582.0" layoutY="109.0" mnemonicParsing="false" onAction="#onClickImprimeTout" prefHeight="45.0" prefWidth="130.0" text="Imprimer">
+      <Button fx:id="imprimeToutButton" layoutX="665.0" layoutY="110.0" mnemonicParsing="false" onAction="#onClickImprimeTout" prefHeight="45.0" prefWidth="150.0" text="Imprimer">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Label layoutX="42.0" layoutY="123.0" text="Rapport quotidien de l'ensemble des emprunts (date, heure, code)">
+      <Label layoutX="46.0" layoutY="123.0" text="Rapport quotidien de l'ensemble des emprunts (date, heure, code)">
          <font>
             <Font size="13.0" />
          </font>
       </Label>
-      <Button fx:id="rechercheJourButton" layoutX="582.0" layoutY="210.0" mnemonicParsing="false" onAction="#onClickRecherche" prefHeight="45.0" prefWidth="130.0" text="Recherche">
+      <Button fx:id="rechercheJourButton" layoutX="666.0" layoutY="210.0" mnemonicParsing="false" onAction="#onClickRecherche" prefHeight="45.0" prefWidth="150.0" text="Recherche">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Label layoutX="42.0" layoutY="223.0" text="Rapport détaillé des emprunts de la journée ">
+      <Label layoutX="46.0" layoutY="223.0" text="Rapport détaillé des emprunts de la journée ">
          <font>
             <Font size="13.0" />
          </font>
       </Label>
-      <DatePicker fx:id="empruntJour_datePick" layoutX="330.0" layoutY="210.0" prefHeight="45.0" prefWidth="234.0" />
-      <Button fx:id="imprimeJourButton" layoutX="582.0" layoutY="537.0" mnemonicParsing="false" onAction="#onClickImprimeJour" prefHeight="45.0" prefWidth="130.0" text="Imprimer">
+      <DatePicker fx:id="empruntJour_datePick" layoutX="422.0" layoutY="210.0" prefHeight="45.0" prefWidth="234.0" />
+      <Button fx:id="imprimeJourButton" layoutX="664.0" layoutY="601.0" mnemonicParsing="false" onAction="#onClickImprimeJour" prefHeight="45.0" prefWidth="150.0" text="Imprimer">
          <font>
             <Font size="14.0" />
          </font>

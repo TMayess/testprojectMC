@@ -16,8 +16,6 @@ public class ValidationOuvrageController {
     @FXML
     private Label valeurAuteur;
     @FXML
-    private Label valeurCategorie;
-    @FXML
     private Label valeurRayon;
     @FXML
     private Button confirmerButton;
@@ -26,14 +24,15 @@ public class ValidationOuvrageController {
 
     @FXML
     private Button closeButton;
+    private Ouvrage valeurOuvrage;
 
 
 
     public void setOuvrage(Ouvrage ouvrage){
         valeurTitre.setText(ouvrage.titre);
         valeurAuteur.setText(ouvrage.auteur);
-        valeurCategorie.setText(ouvrage.categorie);
-
+        valeurRayon.setText(ouvrage.rayon);
+        valeurOuvrage = ouvrage;
     }
 
 
@@ -46,6 +45,7 @@ public class ValidationOuvrageController {
     }
 
     public void onClickConfirmer(ActionEvent actionEvent) {
+        valeurOuvrage.addOuvrage();
         Node  source = (Node)  actionEvent.getSource();
         Stage stage  = (Stage) source.getScene().getWindow();
         stage.close();

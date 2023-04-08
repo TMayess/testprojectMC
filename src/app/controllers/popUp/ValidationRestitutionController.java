@@ -10,7 +10,13 @@ import javafx.stage.Stage;
 public class ValidationRestitutionController {
     @FXML
     public Label valeurAbonnee;
+    @FXML
     public Label valeurLivre1;
+    @FXML
+    public Label valeurLivre2;
+    @FXML
+    public Label valeurLivre3;
+    public Emprunt globalEmprunt;
     public void onClickAjouteExemplaire(ActionEvent actionEvent) {
     }
 
@@ -22,7 +28,22 @@ public class ValidationRestitutionController {
     }
 
     public void setEmprunt(Emprunt emprunt) {
-        valeurAbonnee.setText(emprunt.abonnee);
-        valeurLivre1.setText(emprunt.titreOuvrage);
+        globalEmprunt = emprunt;
+        valeurAbonnee.setText(emprunt.get_abonnee().getNom()+" "+emprunt.get_abonnee().getPrenom());
+        valeurLivre1.setText(emprunt.getExemplaires().get(0).getReference());
+        valeurLivre2.setText(emprunt.getExemplaires().get(1).getReference());
+        valeurLivre3.setText(emprunt.getExemplaires().get(2).getReference());
+
+    }
+
+    public void onClickRestitution(ActionEvent actionEvent) {
+        globalEmprunt.valideRestitution();
+        globalEmprunt.getExemplaires().get(0).modifDisponibleExemplaire(true);
+        globalEmprunt.getExemplaires().get(1).modifDisponibleExemplaire(true);
+        globalEmprunt.getExemplaires().get(2).modifDisponibleExemplaire(true);
+        Node source = (Node)  actionEvent.getSource();
+        Stage stage  = (Stage) source.getScene().getWindow();
+        stage.close();
+
     }
 }

@@ -27,12 +27,15 @@ public class ValideModificationController {
 
     @FXML
     private Label valeurQuestionPopup;
+    private Abonnee globalAbonne;
+
+    private String globalTitre;
 
 
-    public void onClickAjouteExemplaire(ActionEvent actionEvent) {
-    }
+
 
     public void onClickAnnuler(ActionEvent actionEvent) {
+
         Node source = (Node)  actionEvent.getSource();
         Stage stage  = (Stage) source.getScene().getWindow();
         stage.close();
@@ -47,6 +50,25 @@ public class ValideModificationController {
         valeurStatut.setText(abonne.getStatut());
         valeurTitrePopupValidation.setText(titre);
         valeurQuestionPopup.setText(question);
+        globalAbonne = abonne;
+        globalTitre = titre;
+
+    }
+
+    public void onClickAjouteExemplaire(ActionEvent actionEvent) {
+        if (globalTitre.equals("Ajout abonné")){
+            globalAbonne.addAbonne();
+            System.out.println(globalTitre);
+        }else if(globalTitre.equals("suppression abonné")){
+            globalAbonne.dropAbonne();
+            System.out.println(globalTitre);
+        }else if(globalTitre.equals("Sanction abonné")){
+
+
+        }
+        Node source = (Node)  actionEvent.getSource();
+        Stage stage  = (Stage) source.getScene().getWindow();
+        stage.close();
 
     }
 }

@@ -1,8 +1,11 @@
 package app.controllers;
 
+import app.ConnectionDataBase;
 import app.Models.Abonnee;
-import app.controllers.popUp.ValideModificationController;
+import app.Models.Emprunt;
 import app.controllers.popUp.ProlongerDateController;
+import app.controllers.popUp.ValideModificationController;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,11 +22,19 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class GestionSanctionController implements Initializable {
-
+    @FXML
+    public TableColumn<Abonnee, String> codeColumn;
+    @FXML
+    public TableColumn<Abonnee, String> dateEmpruntColumn;
+    @FXML
+    public TableColumn<Abonnee, String> dateRestitutionColumn;
     @FXML
     private TableView<Abonnee> sanctionTableView;
 
@@ -53,7 +64,7 @@ public class GestionSanctionController implements Initializable {
     @FXML
     private TextField rechercheEdit;
 
-    private Abonnee abonnee1;
+    private Abonnee globalAbonnee;
 
 
 
@@ -66,6 +77,8 @@ public class GestionSanctionController implements Initializable {
 
         rechercheComboBox.setItems(RECHERCHEPAR_LIST);
         rechercheComboBox.setValue(RECHERCHEPAR_ITEM[0]);
+        ConnectionDataBase connexion = new ConnectionDataBase();
+        Connection conn = connexion.conn;
 
         identifiantColumn.setCellValueFactory(new PropertyValueFactory<>("identifiant"));
         nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
@@ -73,12 +86,41 @@ public class GestionSanctionController implements Initializable {
         dateNaissanceColumn.setCellValueFactory(new PropertyValueFactory<>("dateNaissance"));
         roleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
         statutColumn.setCellValueFactory(new PropertyValueFactory<>("statut"));
+        codeColumn.setCellValueFactory(cellData -> {
+            Abonnee abonnee = cellData.getValue();
+            String code = String.valueOf(abonnee.getEmprunt().getCode());
+            return new SimpleStringProperty(code);
+        });
+        dateEmpruntColumn.setCellValueFactory(cellData -> {
+            Abonnee abonnee = cellData.getValue();
+            String dateEmprunt = String.valueOf(abonnee.getEmprunt().getDateEmprunt());
+            return new SimpleStringProperty(dateEmprunt);
+        });
+        dateRestitutionColumn.setCellValueFactory(cellData -> {
+            Abonnee abonnee = cellData.getValue();
+            String dateLimite = String.valueOf(abonnee.getEmprunt().getDateLimite());
+            return new SimpleStringProperty(dateLimite);
+        });
 
-        abonneeList.add(new Abonnee("a", "Harryzzz Potter", "moie", LocalDate.of(2022, 1, 10),"hiu_","lknoi"));
-        abonneeList.add(new Abonnee("a", "Harryzzz Potter", "moie",LocalDate.of(2022, 1, 10),"hiu_","lknoi"));
-        abonneeList.add(new Abonnee("a", "Harryzzz Potter", "moie",LocalDate.of(2022, 1, 10),"hiu_","lknoi"));
+        try {
+            String sql = "SELECT abonne.idAbonne, abonne.nom, abonne.prenom, abonne.datenaiss, abonne.role, abonne.statut, emprunt.code, emprunt.dateemprunt, emprunt.daterestitution " +
+                    "FROM abonne " +
+                    "JOIN emprunt ON abonne.idAbonne = emprunt.idAbonne" ;
+            Statement stmt = conn.createStatement();
 
-
+            ResultSet rs = stmt.executeQuery(sql);
+            Emprunt emprunt ;
+            while (rs.next()) {
+                emprunt = new Emprunt(rs.getInt("code"),rs.getDate("dateemprunt").toLocalDate(), rs.getDate("daterestitution").toLocalDate());
+                Abonnee abonnee = new Abonnee( rs.getString("idAbonne"),rs.getString("nom"), rs.getString("prenom"), rs.getDate("datenaiss").toLocalDate(), rs.getString("role"), rs.getString("statut"),emprunt);
+                abonneeList.add(abonnee);
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         sanctionTableView.setItems(abonneeList);
 
@@ -87,7 +129,7 @@ public class GestionSanctionController implements Initializable {
                 Abonnee abonnee = sanctionTableView.getSelectionModel().getSelectedItem();
 
                 if (abonnee != null) {
-                    abonnee1 = abonnee;
+                    globalAbonnee = abonnee;
                     System.out.println(abonnee.getNom() + " ");
                 }
             }
@@ -150,7 +192,7 @@ public class GestionSanctionController implements Initializable {
                 Parent root = loader.load();
 
                 ValideModificationController controller = loader.getController();
-                controller.setAbonnee(abonnee1,"Sanction abonné", "Voulez-vous sanctionner cet abonné ?");
+                controller.setAbonnee(globalAbonnee,"Sanction abonné", "Voulez-vous sanctionner cet abonné ?");
 
                 Stage popupStage = new Stage();
                 Scene scene = new Scene(root);
@@ -178,7 +220,7 @@ public class GestionSanctionController implements Initializable {
                 Parent root = loader.load();
 
                 ProlongerDateController controller = loader.getController();
-                controller.setAbonnee(abonnee1);
+                controller.setAbonnee(globalAbonnee);
 
                 Stage popupStage = new Stage();
                 Scene scene = new Scene(root);
@@ -194,4 +236,5 @@ public class GestionSanctionController implements Initializable {
             }
 
     }
+
 }

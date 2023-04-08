@@ -10,10 +10,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="753.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.GestionRestitutionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="686.0" prefWidth="861.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.GestionRestitutionController">
    <children>
 
-      <Pane prefHeight="74.0" prefWidth="753.0" style="-fx-background-color: #AEB6BF;">
+      <Pane prefHeight="74.0" prefWidth="861.0" style="-fx-background-color: #AEB6BF;">
          <children>
             <Label layoutX="42.0" layoutY="20.0" text="Gestion des restitutions" textFill="#212f3c">
                <font>
@@ -22,23 +22,41 @@
             </Label>
          </children>
       </Pane>
-       <TableView fx:id="restitutionTableView" layoutX="42.0" layoutY="163.0" prefHeight="355.0" prefWidth="670.0">
+       <TableView fx:id="restitutionTableView" layoutX="14.0" layoutY="175.0" prefHeight="418.0" prefWidth="831.0">
            <columns>
-               <TableColumn fx:id="codeColumn" prefWidth="100.0" text="Code" />
-               <TableColumn fx:id="abonneColumn" prefWidth="150.0" text="Abonné(e)" />
-               <TableColumn fx:id="titreColumn" prefWidth="150.0" text="Titre d'ouvrage" />
-               <TableColumn fx:id="dateEmpruntColumn" prefWidth="100.0" text="Date d'emprunt" />
-               <TableColumn fx:id="dateLimiteColumn" prefWidth="100.0" text="Date limite" />
+               <TableColumn fx:id="codeColumn" prefWidth="74.66669082641602" text="Code" />
+               <TableColumn fx:id="dateEmpruntColumn" prefWidth="95.33333587646484" text="Date d'emprunt" />
+            <TableColumn fx:id="heureColumn" prefWidth="78.66670227050781" text="Heure" />
+               <TableColumn fx:id="dateLimiteColumn" prefWidth="89.33331298828125" text="Date limite" />
+               <TableColumn fx:id="abonneColumn" prefWidth="251.99996948242188" text="Abonné(e)">
+               <columns>
+                  <TableColumn fx:id="identifiantAbonneColumn" prefWidth="75.0" text="Identifiant" />
+                  <TableColumn fx:id="nomAbonneColumn" prefWidth="75.0" text="Nom" />
+                  <TableColumn fx:id="prenomAbonneColumn" prefWidth="75.0" text="Prenom" />
+               </columns></TableColumn>
+            <TableColumn prefWidth="178.66668701171875" text="Exemplaire">
+               <columns>
+                  <TableColumn fx:id="ref1Column" prefWidth="75.0" text="Ref(1)" />
+                  <TableColumn fx:id="ref2Column" prefWidth="75.0" text="Ref(2)" />
+                  <TableColumn fx:id="ref3Column" prefWidth="75.0" text="Ref(3)" />
+               </columns>
+            </TableColumn>
            </columns>
        </TableView>
-       <TextField fx:id="rechercheEdit" layoutX="336.0" layoutY="100.0" prefHeight="39.0" prefWidth="246.0" />
-       <Button fx:id="rechercheButton" layoutX="591.0" layoutY="97.0" mnemonicParsing="false" onAction="#onClickRecherche" prefHeight="45.0" prefWidth="130.0" text="Recherche" />
-       <Label layoutX="32.0" layoutY="110.0" text="Recherche par :">
+       <TextField fx:id="rechercheEdit" layoutX="414.0" layoutY="101.0" prefHeight="45.0" prefWidth="246.0" />
+       <Button fx:id="rechercheButton" layoutX="668.0" layoutY="100.0" mnemonicParsing="false" onAction="#onClickRecherche" prefHeight="45.0" prefWidth="150.0" text="Recherche">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+       <Label layoutX="49.0" layoutY="112.0" text="Recherche par :">
            <font>
                <Font size="14.0" />
            </font>
        </Label>
-       <ComboBox fx:id="rechercheAvecComboBox" layoutX="135.0" layoutY="100.0" prefHeight="39.0" prefWidth="189.0" />
-      <Button fx:id="rendreButton" layoutX="584.0" layoutY="540.0" mnemonicParsing="false" onAction="#onClickRendreEmprunt" prefHeight="45.0" prefWidth="130.0" text="Modifier" />
+       <ComboBox fx:id="rechercheAvecComboBox" layoutX="197.0" layoutY="101.0" prefHeight="45.0" prefWidth="208.0" />
+      <Button fx:id="rendreButton" layoutX="667.0" layoutY="603.0" mnemonicParsing="false" onAction="#onClickRendreEmprunt" prefHeight="45.0" prefWidth="150.0" text="Rendre">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
    </children>
 </AnchorPane>

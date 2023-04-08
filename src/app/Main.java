@@ -5,14 +5,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class Main extends Application {
     double x,y = 0;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.initStyle(StageStyle.UNDECORATED);
-        Parent root = FXMLLoader.load(getClass().getResource("views/mainBibliothecaire.fxml"));
+        String role = (String) primaryStage.getUserData();
+        Parent root = FXMLLoader.load(getClass().getResource("views/main"+role+".fxml"));
 
         root.setOnMousePressed(event -> {
             x = event.getSceneX();
@@ -28,6 +28,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("bibliothéque");
         primaryStage.show();
+        primaryStage.centerOnScreen();
     }
 
     public static void main(String[] args) {

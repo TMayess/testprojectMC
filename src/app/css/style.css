@@ -29,6 +29,12 @@
     -fx-background-radius: 3, 2, 4, 0;
 }
 
+.degrader-image{
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 50%, #FFFFFF, #000000);
+}
+
 
 
 

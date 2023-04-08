@@ -1,6 +1,9 @@
 package app.controllers;
 
+import app.ConnectionDataBase;
 import app.Models.Abonnee;
+import app.Models.AlerteDialoguePerso;
+import app.Models.Exemplaire;
 import app.Models.Ouvrage;
 import app.controllers.popUp.ValidationEmpruntController;
 import javafx.collections.FXCollections;
@@ -26,11 +29,11 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.*;
 
 public class GestionEmpruntController implements Initializable {
 
@@ -45,6 +48,18 @@ public class GestionEmpruntController implements Initializable {
     public Label nomValeur;
     @FXML
     public Label prenomValeur;
+    @FXML
+    public Label valeurNbLivre;
+    @FXML
+    public TableColumn rayonColumn;
+    @FXML
+    public TableView <Exemplaire> empruntExemplaireTableView;
+    @FXML
+    public TableColumn<Exemplaire, String> identifiantExemplaireColumn;
+
+    @FXML
+    public TableColumn<Exemplaire, String> referenceExemplaireColumn;
+    private ObservableList<Exemplaire> exemplairesList = FXCollections.observableArrayList();
     @FXML
     private TableView<Abonnee> empruntTableView;
 
@@ -70,17 +85,18 @@ public class GestionEmpruntController implements Initializable {
     private TableView<Ouvrage> empruntOuvrageTableView;
 
     @FXML
-    private TableColumn<Ouvrage, String> identifiantColumn1;
+    private TableColumn<Ouvrage, String> identifiantOuvrageColumn;
     @FXML
-    private TableColumn<Ouvrage, String> titreColumn1;
+    private TableColumn<Ouvrage, String> titreColumn;
     @FXML
-    private TableColumn<Ouvrage, String> auteurColumn1;
+    private TableColumn<Ouvrage, String> auteurColumn;
     @FXML
-    private TableColumn<Ouvrage, String> categorieColumn1;
+    private TableColumn<Ouvrage, String> categorieColumn;
 
 
 
     private ObservableList<Ouvrage> ouvrageList = FXCollections.observableArrayList();
+    private List<Exemplaire> exemplaireList = FXCollections.observableArrayList();
 
 
     @FXML
@@ -89,12 +105,12 @@ public class GestionEmpruntController implements Initializable {
     private final ObservableList<String> RECHERCHEPAR_LIST = FXCollections.observableArrayList(RECHERCHEPAR_ITEM);
     @FXML
     private ComboBox rechercheOuvrageComboBox;
-    private final String[] RECHERCHEOUVRAGE_ITEM = {"Tout", "Identifiant", "Titre", "Auteur", "Catégorie", "Exemplaire"};
+    private final String[] RECHERCHEOUVRAGE_ITEM = {"Tout", "Identifiant", "Titre", "Auteur", "Rayon"};
     private final ObservableList<String> RECHERCHEOUVRAGE_LIST = FXCollections.observableArrayList(RECHERCHEOUVRAGE_ITEM);
 
     List<Ouvrage> listOuvrage = new ArrayList<>(3);
-    Ouvrage ouvrage1;
-    Abonnee abonnee1;
+    Ouvrage globalOuvrage;
+    Abonnee globalAbonne;
     Pane plusPane;
 
 
@@ -102,66 +118,139 @@ public class GestionEmpruntController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         rechercheComboBox.setItems(RECHERCHEPAR_LIST);
         rechercheComboBox.setValue(RECHERCHEPAR_ITEM[0]);
+
         rechercheOuvrageComboBox.setItems(RECHERCHEOUVRAGE_LIST);
         rechercheOuvrageComboBox.setValue(RECHERCHEOUVRAGE_ITEM[0]);
+
 
         identifiantColumn.setCellValueFactory(new PropertyValueFactory<>("identifiant"));
         nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
         prenomColumn.setCellValueFactory(new PropertyValueFactory<>("prenom"));
         roleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
         statutColumn.setCellValueFactory(new PropertyValueFactory<>("statut"));
+        try {
+            ConnectionDataBase connexion = new ConnectionDataBase();
+            Connection conn = connexion.conn;
+            String query = "SELECT * FROM Abonne WHERE idAbonne NOT IN (SELECT DISTINCT idAbonne FROM emprunt WHERE rendu = 0)";
 
-        abonneeList.add(new Abonnee("a", "Harryzzz Potter", "moie", LocalDate.of(2022, 1, 10), "hiu_", "lknoi"));
-        abonneeList.add(new Abonnee("aezr", "Harryzzz Potter", "moie", LocalDate.of(2022, 1, 10), "hirrzu_", "lknoi"));
-        abonneeList.add(new Abonnee("aeeezr", "Harryzzzrrrr Potter", "moirrre", LocalDate.of(2022, 1, 10), "hirru_", "lkrrnoi"));
+            Statement stmt = conn.createStatement();
+
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                Abonnee abonne = new Abonnee(rs.getString("idAbonne"),rs.getString("nom"), rs.getString("prenom"), rs.getDate("dateNaiss").toLocalDate(),rs.getString("role"),rs.getString("statut"));
+                abonneeList.add(abonne);
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
         empruntTableView.setItems(abonneeList);
 
-        identifiantColumn1.setCellValueFactory(new PropertyValueFactory<>("identifiant"));
-        titreColumn1.setCellValueFactory(new PropertyValueFactory<>("titre"));
-        auteurColumn1.setCellValueFactory(new PropertyValueFactory<>("auteur"));
-        categorieColumn1.setCellValueFactory(new PropertyValueFactory<>("categorie"));
 
-        ouvrageList.add(new Ouvrage("ddd", "zad", "daz", "azdeea", "zad", false));
-        ouvrageList.add(new Ouvrage("dzaedd", "zazd", "daaz", "azda", "zad", false));
-        ouvrageList.add(new Ouvrage("ddezd", "zazad", "daz", "azdea", "zad", false));
+        identifiantOuvrageColumn.setCellValueFactory(new PropertyValueFactory<>("Identifiant"));
+        titreColumn.setCellValueFactory(new PropertyValueFactory<>("Titre"));
+        auteurColumn.setCellValueFactory(new PropertyValueFactory<>("Auteur"));
+        rayonColumn.setCellValueFactory(new PropertyValueFactory<>("Rayon"));
+
+        try {
+            ConnectionDataBase connexion = new ConnectionDataBase();
+            Connection conn = connexion.conn;
+            String query = "SELECT idOuvrage, titre, auteur, rayon, ref " +
+                    "FROM exemplaire " +
+                    "JOIN ouvrage ON exemplaire.Ouvrage_idOuvrage = ouvrage.idOuvrage " +
+                    "WHERE exemplaire.disponible = 1";
+
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+
+            Map<String, Ouvrage> ouvrageMap = new HashMap<>();
+
+            while (rs.next()) {
+                String idOuvrage = rs.getString("idOuvrage");
+                String titre = rs.getString("titre");
+                String auteur = rs.getString("auteur");
+                String rayon = rs.getString("rayon");
+                String ref = rs.getString("ref");
+
+                Ouvrage ouvrage;
+                if (ouvrageMap.containsKey(idOuvrage)) {
+                    ouvrage = ouvrageMap.get(idOuvrage);
+                } else {
+                    ouvrage = new Ouvrage(idOuvrage, titre, auteur, rayon, new ArrayList<Exemplaire>());
+                    ouvrageMap.put(idOuvrage, ouvrage);
+                    ouvrageList.add(ouvrage);
+                }
+
+                Exemplaire exemplaire = new Exemplaire(ref, idOuvrage);
+                ouvrage.getExemplaires().add(exemplaire);
+
+
+            }
+
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
 
         empruntOuvrageTableView.setItems(ouvrageList);
 
+
+        identifiantExemplaireColumn.setCellValueFactory(new PropertyValueFactory<>("idOuvrage"));
+        referenceExemplaireColumn.setCellValueFactory(new PropertyValueFactory<>("reference"));
+
+
+
+
         empruntTableView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) {
                 Abonnee abonnee = empruntTableView.getSelectionModel().getSelectedItem();
-
                 if (abonnee != null) {
-
                     identifiantValeur.setText(abonnee.getIdentifiant());
                     nomValeur.setText(abonnee.getNom());
                     prenomValeur.setText(abonnee.getPrenom());
                     roleValeur.setText(abonnee.getRole());
                     statutValeur.setText(abonnee.getStatut());
-                    abonnee1 = abonnee;
+                    globalAbonne = abonnee;
                 }
             }
         });
+
+
         empruntOuvrageTableView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) {
                 Ouvrage ouvrage = empruntOuvrageTableView.getSelectionModel().getSelectedItem();
-
                 if (ouvrage != null) {
+                    for (Ouvrage ouvrage2 : ouvrageList) {
+                        if (ouvrage2.getIdentifiant() == ouvrage.getIdentifiant()){
+                            exemplaireList = ouvrage2.getExemplaires();
+                            exemplairesList.clear();
+                            exemplairesList.addAll(exemplaireList);
 
-                    ouvrage1 = ouvrage;
+                            empruntExemplaireTableView.setItems(exemplairesList);
+                        }
+                    }
+                    globalOuvrage = ouvrage;
                 }
             }
         });
 
 
+
+        valeurNbLivre.setText("(Nombre de livres sélectionnés 0)");
 
         plusPane = createPlusPane();
         HBox.setMargin(plusPane, new Insets(0, 5, 0, 5));
         hbox.getChildren().add(plusPane);
-
-
-
     }
 
 
@@ -224,8 +313,8 @@ public class GestionEmpruntController implements Initializable {
             filteredList.addAll(ouvrageList.filtered(ouvrage ->
                     ouvrage.getIdentifiant().toLowerCase().contains(searchText.toLowerCase()) ||
                             ouvrage.getTitre().toLowerCase().contains(searchText.toLowerCase()) ||
-                            ouvrage.getAuteur().toLowerCase().contains(searchText.toLowerCase()) ||
-                            ouvrage.getCategorie().toLowerCase().contains(searchText.toLowerCase())
+                            ouvrage.getRayon().toLowerCase().contains(searchText.toLowerCase()) ||
+                            ouvrage.getAuteur().toLowerCase().contains(searchText.toLowerCase())
 
 
             ));
@@ -241,26 +330,39 @@ public class GestionEmpruntController implements Initializable {
             filteredList.addAll(ouvrageList.filtered(ouvrage ->
                     ouvrage.getAuteur().toLowerCase().contains(searchText.toLowerCase())
             ));
-        } else if (selectedItem.equals("Catégorie")) {
+        } else if (selectedItem.equals("Rayon")) {
             filteredList.addAll(ouvrageList.filtered(ouvrage ->
-                    ouvrage.getCategorie().toLowerCase().contains(searchText.toLowerCase())
+                    ouvrage.getRayon().toLowerCase().contains(searchText.toLowerCase())
             ));
+        }
 
 
             empruntOuvrageTableView.setItems(filteredList);
         }
-    }
+
 
 
     private void addNewPane(Ouvrage ouvrage) {
         int nombrePane = hbox.getChildren().size();
-        if (nombrePane >= 3){
-            hbox.getChildren().remove(plusPane);
+
+        int nb = listOuvrage.indexOf(ouvrage) ;
+        if (nb == -1){
+            if (nombrePane >= 3){
+                hbox.getChildren().remove(plusPane);
+            }
+            Pane newPane = createNewPane(ouvrage);
+            HBox.setMargin(newPane, new Insets(0, 5, 0, 5));
+            hbox.getChildren().add(hbox.getChildren().size()-1,newPane);
+            listOuvrage.add(ouvrage);
+            valeurNbLivre.setText("(Nombre de ouvrage sélectionnés "+ listOuvrage.size() +")");
+        }else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Vous avez deja ajouter le livre");
+            alert.showAndWait();
         }
-        Pane newPane = createNewPane(ouvrage);
-        HBox.setMargin(newPane, new Insets(0, 5, 0, 5));
-        hbox.getChildren().add(hbox.getChildren().size()-1,newPane);
-        listOuvrage.add(ouvrage);
+
     }
 
     private Pane createPlusPane(){
@@ -275,8 +377,13 @@ public class GestionEmpruntController implements Initializable {
         duplicateButton.setPrefSize(34.0, 34.0);
         duplicateButton.setStyle("-fx-background-color: white;");
         duplicateButton.setOnAction(e -> {
-            if (ouvrage1 != null){
-                addNewPane(ouvrage1);
+            if (globalOuvrage != null){
+
+                addNewPane(globalOuvrage);
+
+            }else{
+                AlerteDialoguePerso alert = new AlerteDialoguePerso("Erreur","Sélectionnez d'abord le livre pour l'ajouter");
+                alert.create();
             }
         });
 
@@ -323,13 +430,6 @@ public class GestionEmpruntController implements Initializable {
         pane.getChildren().add(auteurLabel);
         auteurLabel.setText(ouvrage.auteur);
 
-        Label categorieLabel = new Label("Categorie");
-        categorieLabel.setLayoutX(26.0);
-        categorieLabel.setLayoutY(118.0);
-        categorieLabel.setFont(new Font(14.0));
-        pane.getChildren().add(categorieLabel);
-        categorieLabel.setText(ouvrage.categorie);
-
         Button closeButton = new Button();
         closeButton.setLayoutX(170.0);
         closeButton.setLayoutY(2.0);
@@ -362,6 +462,9 @@ public class GestionEmpruntController implements Initializable {
                 hbox.getChildren().add(plusPane);
             }
             hbox.getChildren().remove(pane);
+            valeurNbLivre.setText("(Nombre de ouvrage sélectionnés "+ listOuvrage.size() +")");
+
+
 
         });
         pane.getChildren().add(closeButton);
@@ -371,19 +474,29 @@ public class GestionEmpruntController implements Initializable {
     }
     public void onClickAjouteEmprunt(ActionEvent actionEvent) {
 
+        FXMLLoader loader;
+        Parent root;
+        AlerteDialoguePerso alert = new AlerteDialoguePerso();
 
-        if(abonnee1 == null){
-            System.err.println("vous avez pas sectionner l'abonne");
+        if(globalAbonne == null){
+
+            alert.setTitrePopup("Erreur");
+            alert.setPhrasePopup("Vous n'avez pas sélectionné l'abonné.");
+            alert.create();
+
         }else if(listOuvrage.size() == 0){
-            System.err.println("vous avez pas selectionner un livre");
+            alert.setTitrePopup("Erreur");
+            alert.setPhrasePopup("Vous n'avez sélectionné aucun livre.");
+            alert.create();
+
         }else {
             try {
-
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/views/PopUp/popUp_validationEmprunt.fxml"));
-                Parent root = loader.load();
+                loader = new FXMLLoader(getClass().getResource("/app/views/PopUp/popUp_validationEmprunt.fxml"));
+                root = loader.load();
 
                 ValidationEmpruntController controller = loader.getController();
-                controller.setAbonnee(abonnee1,listOuvrage);
+
+                controller.setAbonnee(globalAbonne,listOuvrage);
                 createWindow(root);
 
 

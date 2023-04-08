@@ -30,14 +30,21 @@
             </font>
         </Label>
         <ComboBox fx:id="rechercheComboBox" layoutX="137.0" layoutY="159.0" prefHeight="39.0" prefWidth="189.0" />
-      <TableView fx:id="sanctionTableView" layoutX="42.0" layoutY="225.0" prefHeight="312.0" prefWidth="670.0">
+      <TableView fx:id="sanctionTableView" layoutX="14.0" layoutY="225.0" prefHeight="312.0" prefWidth="725.0">
           <columns>
-              <TableColumn fx:id="identifiantColumn" prefWidth="123.33331680297852" text="Identifiant" />
-              <TableColumn fx:id="nomColumn" prefWidth="113.99998474121094" text="Nom" />
-              <TableColumn fx:id="prenomColumn" prefWidth="116.6666259765625" text="Prenom" />
-              <TableColumn fx:id="dateNaissanceColumn" prefWidth="133.33334350585938" text="Date de Naissance" />
-              <TableColumn fx:id="roleColumn" prefWidth="77.33331298828125" text="Role" />
-              <TableColumn fx:id="statutColumn" prefWidth="86.66668701171875" text="Statut" />
+              <TableColumn fx:id="identifiantColumn" prefWidth="90.66666030883789" text="Identifiant" />
+              <TableColumn fx:id="nomColumn" prefWidth="80.00003051757812" text="Nom" />
+              <TableColumn fx:id="prenomColumn" prefWidth="80.66667175292969" text="Prenom" />
+              <TableColumn fx:id="dateNaissanceColumn" prefWidth="86.66668701171875" text="Date de Naissance" />
+              <TableColumn fx:id="roleColumn" prefWidth="80.66668701171875" text="Role" />
+              <TableColumn fx:id="statutColumn" prefWidth="75.99993896484375" text="Statut" />
+            <TableColumn prefWidth="229.33340454101562" text="Emprunt">
+               <columns>
+                  <TableColumn fx:id="codeColumn" prefWidth="56.6666259765625" text="code" />
+                  <TableColumn fx:id="dateEmpruntColumn" prefWidth="94.00006103515625" text="date emprunt" />
+                  <TableColumn fx:id="dateRestitutionColumn" prefWidth="75.0" text="date restitution" />
+               </columns>
+            </TableColumn>
           </columns>
       </TableView>
       <Label layoutX="34.0" layoutY="110.0" text="Liste des abonnees qui en dépasser la date limite">

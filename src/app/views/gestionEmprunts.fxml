@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="753.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.GestionEmpruntController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="686.0" prefWidth="861.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.GestionEmpruntController">
    <children>
-      <Pane prefHeight="74.0" prefWidth="753.0" style="-fx-background-color: #AEB6BF;">
+      <Pane prefHeight="74.0" prefWidth="861.0" style="-fx-background-color: #AEB6BF;">
          <children>
             <Label layoutX="42.0" layoutY="20.0" text="Gestion des emprunts" textFill="#212f3c">
                <font>
@@ -23,11 +23,11 @@
             </Label>
          </children>
       </Pane>
-      <ScrollPane focusTraversable="false" layoutY="74.0" prefHeight="543.0" prefWidth="753.0" vvalue="1.0">
+      <ScrollPane focusTraversable="false" layoutY="74.0" prefHeight="616.0" prefWidth="861.0">
          <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1037.0" prefWidth="736.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1017.0" prefWidth="849.0" style="-fx-background-color: #EAECEE;">
                <children>
-                  <Pane prefHeight="61.0" prefWidth="753.0" style="-fx-background-color: white;">
+                  <Pane prefHeight="61.0" prefWidth="861.0" style="-fx-background-color: white;">
                      <children>
                         <Label layoutX="40.0" layoutY="18.0" text="Recheche de l'abonné">
                            <font>
@@ -37,7 +37,7 @@
                      </children>
                   </Pane>
             
-                  <TableView fx:id="empruntTableView" layoutX="35.0" layoutY="141.0" prefHeight="134.0" prefWidth="670.0">
+                  <TableView fx:id="empruntTableView" layoutX="45.0" layoutY="143.0" prefHeight="134.0" prefWidth="770.0">
                      <columns>
                         <TableColumn fx:id="identifiantColumn" minWidth="-Infinity" prefWidth="98.0000057220459" text="Identifiant" />
                         <TableColumn fx:id="nomColumn" minWidth="-Infinity" prefWidth="129.3333282470703" text="Nom" />
@@ -46,28 +46,28 @@
                         <TableColumn fx:id="statutColumn" minWidth="-Infinity" prefWidth="112.00006103515625" text="Statut" />
                      </columns>
                   </TableView>
-                  <TextField fx:id="rechercheEdit" layoutX="339.0" layoutY="79.0" prefHeight="45.0" prefWidth="226.0" />
-                  <Button fx:id="rechercheButton" layoutX="573.0" layoutY="78.0" mnemonicParsing="false" onAction="#onClickRecherche" prefHeight="45.0" prefWidth="130.0" text="Recherche">
+                  <TextField fx:id="rechercheEdit" layoutX="407.0" layoutY="78.0" prefHeight="45.0" prefWidth="250.0" />
+                  <Button fx:id="rechercheButton" layoutX="665.0" layoutY="78.0" mnemonicParsing="false" onAction="#onClickRecherche" prefHeight="45.0" prefWidth="150.0" text="Recherche">
                      <font>
                         <Font size="14.0" />
                      </font></Button>
-                  <Label layoutX="37.0" layoutY="91.0" text="Recherche par :">
+                  <Label layoutX="46.0" layoutY="91.0" text="Recherche par :">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="rechercheComboBox" layoutX="146.0" layoutY="81.0" prefHeight="39.0" prefWidth="186.0" />
+                  <ComboBox fx:id="rechercheComboBox" layoutX="198.0" layoutY="78.0" prefHeight="45.0" prefWidth="200.0" />
                   <Label layoutX="56.0" layoutY="324.0" text="Identifiant :">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="485.0" layoutY="324.0" text="Prenom :">
+                  <Label layoutX="521.0" layoutY="325.0" text="Prenom :">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="260.0" layoutY="324.0" text="Nom :">
+                  <Label layoutX="279.0" layoutY="324.0" text="Nom :">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -77,22 +77,21 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="260.0" layoutY="365.0" text="Statut :">
+                  <Label layoutX="280.0" layoutY="365.0" text="Statut :">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="empruntOuvrageTableView" layoutX="40.0" layoutY="550.0" prefHeight="148.0" prefWidth="670.0">
+                  <TableView fx:id="empruntOuvrageTableView" layoutX="46.0" layoutY="549.0" prefHeight="148.0" prefWidth="485.0">
                      <columns>
-                        <TableColumn fx:id="identifiantColumn1" minWidth="-Infinity" prefWidth="98.0000057220459" text="identifiant" />
-                        <TableColumn fx:id="titreColumn1" minWidth="-Infinity" prefWidth="129.3333282470703" text="Titre" />
-                        <TableColumn fx:id="auteurColumn1" minWidth="-Infinity" prefWidth="127.33331298828125" text="Auteur" />
-                        <TableColumn fx:id="categorieColumn1" minWidth="-Infinity" prefWidth="116.0" text="Catégorie" />
-                        <TableColumn fx:id="exemplaireColumn1" minWidth="-Infinity" prefWidth="112.00006103515625" text="Exemplaires" />
+                        <TableColumn fx:id="identifiantOuvrageColumn" minWidth="-Infinity" prefWidth="98.0000057220459" text="Identifiant" />
+                        <TableColumn fx:id="titreColumn" minWidth="-Infinity" prefWidth="129.3333282470703" text="Titre" />
+                        <TableColumn fx:id="auteurColumn" minWidth="-Infinity" prefWidth="127.33331298828125" text="Auteur" />
+                        <TableColumn fx:id="rayonColumn" minWidth="-Infinity" prefWidth="116.0" text="Rayon" />
                      </columns>
                   </TableView>
-                  <HBox fx:id="hbox" layoutX="38.0" layoutY="753.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="175.0" prefWidth="678.0" />
-                  <Pane layoutY="410.0" prefHeight="61.0" prefWidth="753.0" style="-fx-background-color: white;">
+                  <HBox fx:id="hbox" layoutX="45.0" layoutY="752.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="175.0" prefWidth="770.0" />
+                  <Pane layoutY="410.0" prefHeight="61.0" prefWidth="861.0" style="-fx-background-color: white;">
                      <children>
                         <Label layoutX="44.0" layoutY="18.0" text="Recheche des ouvrages disponible">
                            <font>
@@ -101,58 +100,69 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Label layoutX="38.0" layoutY="288.0" text="Vous avez selctionner cet abonné :">
+                  <Label layoutX="48.0" layoutY="287.0" text="Vous avez selctionner cet abonné :">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="rechercheOuvrageEdit" layoutX="347.0" layoutY="489.0" prefHeight="45.0" prefWidth="226.0" />
-                  <Button fx:id="rechercheOuvrageButton" layoutX="581.0" layoutY="489.0" mnemonicParsing="false" onAction="#onClickRechercheOuvrage" prefHeight="45.0" prefWidth="130.0" text="Recherche">
+                  <TextField fx:id="rechercheOuvrageEdit" layoutX="407.0" layoutY="489.0" prefHeight="45.0" prefWidth="250.0" />
+                  <Button fx:id="rechercheOuvrageButton" layoutX="665.0" layoutY="489.0" mnemonicParsing="false" onAction="#onClickRechercheOuvrage" prefHeight="45.0" prefWidth="150.0" text="Recherche">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Label layoutX="41.0" layoutY="502.0" text="Recherche par :">
+                  <Label layoutX="46.0" layoutY="502.0" text="Recherche par :">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="rechercheOuvrageComboBox" layoutX="154.0" layoutY="492.0" prefHeight="39.0" prefWidth="186.0" />
-                  <Label layoutX="42.0" layoutY="714.0" text="Vous avez selctionner ces ouvrage : ( Nombre maximum 3)">
+                  <ComboBox fx:id="rechercheOuvrageComboBox" layoutX="198.0" layoutY="489.0" prefHeight="45.0" prefWidth="200.0" />
+                  <Label layoutX="46.0" layoutY="716.0" text="Vous avez selctionner ces ouvrage :">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button layoutX="573.0" layoutY="955.0" mnemonicParsing="false" onAction="#onClickAjouteEmprunt" prefHeight="45.0" prefWidth="130.0" text="Ajouter">
+                  <Button layoutX="665.0" layoutY="947.0" mnemonicParsing="false" onAction="#onClickAjouteEmprunt" prefHeight="45.0" prefWidth="150.0" text="Ajouter">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Label fx:id="identifiantValeur" layoutX="132.0" layoutY="325.0">
+                  <Label fx:id="identifiantValeur" layoutX="132.0" layoutY="325.0" prefHeight="20.0" prefWidth="139.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="nomValeur" layoutX="302.0" layoutY="325.0">
+                  <Label fx:id="nomValeur" layoutX="324.0" layoutY="325.0" prefHeight="20.0" prefWidth="190.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="prenomValeur" layoutX="549.0" layoutY="325.0">
+                  <Label fx:id="prenomValeur" layoutX="586.0" layoutY="323.0" prefHeight="23.0" prefWidth="249.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="roleValeur" layoutX="94.0" layoutY="365.0">
+                  <Label fx:id="roleValeur" layoutX="94.0" layoutY="365.0" prefHeight="20.0" prefWidth="172.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="statutValeur" layoutX="309.0" layoutY="365.0">
+                  <Label fx:id="statutValeur" layoutX="338.0" layoutY="365.0" prefHeight="20.0" prefWidth="210.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
+                  <Label fx:id="valeurNbLivre" layoutX="269.0" layoutY="716.0" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="empruntExemplaireTableView" layoutX="551.0" layoutY="549.0" prefHeight="150.0" prefWidth="263.0">
+                    <columns>
+                      <TableColumn fx:id="referenceExemplaireColumn" prefWidth="124.66668701171875" text="Reference" />
+                      <TableColumn fx:id="identifiantExemplaireColumn" prefWidth="107.3333740234375" text="Identifiant" />
+                    </columns>
+                  </TableView>
                </children>
             </AnchorPane>
          </content>
