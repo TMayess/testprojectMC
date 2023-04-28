@@ -1,6 +1,7 @@
 package app.controllers.popUp;
 
 import app.Models.Abonnee;
+import app.Models.Utilisateur;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -50,5 +51,8 @@ public class ModificationController {
         roleComboBox.setValue(abonne.getRole());
         statutComboBox.setValue(abonne.getStatut());
 
+    }
+
+    public void setAbonnee(Utilisateur userGlobal) {
     }
 }

@@ -7,6 +7,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class ValidationRestitutionController {
     @FXML
     public Label valeurAbonnee;
@@ -36,14 +38,16 @@ public class ValidationRestitutionController {
 
     }
 
-    public void onClickRestitution(ActionEvent actionEvent) {
+    public void onClickRestitution(ActionEvent actionEvent) throws IOException {
         globalEmprunt.valideRestitution();
         globalEmprunt.getExemplaires().get(0).modifDisponibleExemplaire(true);
         globalEmprunt.getExemplaires().get(1).modifDisponibleExemplaire(true);
         globalEmprunt.getExemplaires().get(2).modifDisponibleExemplaire(true);
-        Node source = (Node)  actionEvent.getSource();
-        Stage stage  = (Stage) source.getScene().getWindow();
+
+        Node source = (Node) actionEvent.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
 
     }
+
 }

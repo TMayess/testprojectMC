@@ -8,6 +8,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
+
 public class ProlongerDateController {
     @FXML
     public DatePicker newDateLimiteDatePicker;
@@ -20,7 +22,14 @@ public class ProlongerDateController {
     @FXML
     public Label valeurDateNaissance;
 
+    public Abonnee globalAbonne;
+
     public void onClickAjouteExemplaire(ActionEvent actionEvent) {
+        LocalDate date = newDateLimiteDatePicker.getValue();
+        globalAbonne.prolongeEmprunt(date);
+        Node source = (Node)  actionEvent.getSource();
+        Stage stage  = (Stage) source.getScene().getWindow();
+        stage.close();
 
     }
 
@@ -31,8 +40,10 @@ public class ProlongerDateController {
     }
 
     public void setAbonnee(Abonnee abonnee) {
+        globalAbonne = abonnee;
         valeurIdentifiant.setText(abonnee.getIdentifiant());
         valeurNom.setText(abonnee.getNom());
+        newDateLimiteDatePicker.setValue(LocalDate.now());
         valeurPrenom.setText(abonnee.getPrenom());
 
     }

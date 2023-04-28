@@ -12,10 +12,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="753.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.GestionAbonneeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="686.0" prefWidth="861.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.GestionAbonneeController">
     <children>
 
-        <Pane prefHeight="74.0" prefWidth="753.0" style="-fx-background-color: #AEB6BF;">
+        <Pane prefHeight="74.0" prefWidth="861.0" style="-fx-background-color: #AEB6BF;">
             <children>
                 <Label layoutX="42.0" layoutY="20.0" text="Gestion des abonnées" textFill="#212f3c">
                     <font>
@@ -25,16 +25,16 @@
             </children>
         </Pane>
 
-        <TextField fx:id="rechercheEdit" layoutX="336.0" layoutY="328.0" prefHeight="39.0" prefWidth="246.0" />
-        <Button fx:id="rechercheButton" layoutX="591.0" layoutY="325.0" mnemonicParsing="false" onAction="#onClickRecherche" prefHeight="45.0" prefWidth="130.0" text="Recherche" />
+        <TextField fx:id="rechercheEdit" layoutX="403.0" layoutY="328.0" prefHeight="39.0" prefWidth="246.0" />
+        <Button fx:id="rechercheButton" layoutX="685.0" layoutY="325.0" mnemonicParsing="false" onAction="#onClickRecherche" prefHeight="45.0" prefWidth="130.0" text="Recherche" />
         <Label layoutX="32.0" layoutY="338.0" text="Recherche par :">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
-        <ComboBox fx:id="rechercheComboBox" layoutX="135.0" layoutY="328.0" prefHeight="39.0" prefWidth="189.0" />
+        <ComboBox fx:id="rechercheComboBox" layoutX="157.0" layoutY="328.0" prefHeight="39.0" prefWidth="224.0" />
 
-        <TableView fx:id="abonneeTableView" layoutX="41.0" layoutY="391.0" prefHeight="141.0" prefWidth="670.0">
+        <TableView fx:id="abonneeTableView" layoutX="41.0" layoutY="391.0" prefHeight="181.0" prefWidth="774.0">
         <columns>
           <TableColumn fx:id="identifiantColumn" prefWidth="123.33331680297852" text="Identifiant" />
           <TableColumn fx:id="nomColumn" prefWidth="113.99998474121094" text="Nom" />
@@ -49,16 +49,15 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="582.0" layoutY="550.0" mnemonicParsing="false" onAction="#onClickModifierAbonnee" prefHeight="45.0" prefWidth="130.0" text="Modifier" />
-      <Button layoutX="434.0" layoutY="550.0" mnemonicParsing="false" onAction="#onClickSupprimerAbonnee" prefHeight="45.0" prefWidth="130.0" text="Supprimer" />
+      <Button layoutX="685.0" layoutY="596.0" mnemonicParsing="false" onAction="#onClickSupprimerAbonnee" prefHeight="45.0" prefWidth="130.0" text="Supprimer" />
       <TextField fx:id="identifiantEdit" layoutX="32.0" layoutY="121.0" prefHeight="39.0" prefWidth="216.0" promptText="Identifiant" stylesheets="@../css/style.css" />
       <TextField fx:id="prenomEdit" layoutX="32.0" layoutY="179.0" prefHeight="39.0" prefWidth="216.0" promptText="Prenom" />
-      <TextField fx:id="nomEdit" layoutX="283.0" layoutY="121.0" prefHeight="39.0" prefWidth="216.0" promptText="Nom" />
-      <ComboBox fx:id="statutComboBox" layoutX="532.0" layoutY="179.0" prefHeight="39.0" prefWidth="189.0" />
-      <ComboBox fx:id="roleComboBox" layoutX="532.0" layoutY="121.0" prefHeight="39.0" prefWidth="189.0" />
-      <Button layoutX="555.0" layoutY="234.0" mnemonicParsing="false" onAction="#onClickAjouteAbonnee" prefHeight="45.0" prefWidth="166.0" text="Ajouter" />
-      <Separator layoutX="90.0" layoutY="304.0" prefHeight="0.0" prefWidth="602.0" />
-      <DatePicker fx:id="dateNaissanceEdit" layoutX="283.0" layoutY="179.0" prefHeight="39.0" prefWidth="216.0" promptText="JJ/MM/AAAA" />
+      <TextField fx:id="nomEdit" layoutX="323.0" layoutY="121.0" prefHeight="39.0" prefWidth="216.0" promptText="Nom" />
+      <ComboBox fx:id="statutComboBox" layoutX="626.0" layoutY="179.0" prefHeight="39.0" prefWidth="189.0" />
+      <ComboBox fx:id="roleComboBox" layoutX="626.0" layoutY="121.0" prefHeight="39.0" prefWidth="189.0" />
+      <Button layoutX="656.0" layoutY="244.0" mnemonicParsing="false" onAction="#onClickAjouteAbonnee" prefHeight="45.0" prefWidth="166.0" text="Ajouter" />
+      <Separator layoutX="90.0" layoutY="302.0" prefHeight="5.0" prefWidth="693.0" />
+      <DatePicker fx:id="dateNaissanceEdit" layoutX="323.0" layoutY="179.0" prefHeight="39.0" prefWidth="216.0" promptText="JJ/MM/AAAA" />
 
 
     </children>

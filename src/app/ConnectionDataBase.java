@@ -19,17 +19,6 @@ public class ConnectionDataBase {
         }
     }
 
-    public void closeConnection() {
-        try {
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
-
 }
 
 

@@ -18,8 +18,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-public class MainBibliothecaireController implements Initializable {
+public class MainAdminController implements Initializable {
 
     @FXML
     public ToggleButton gestionRapportButton;
@@ -27,6 +26,8 @@ public class MainBibliothecaireController implements Initializable {
     public ToggleButton gestionEmpruntButton;
     @FXML
     public ToggleButton gestionAcquisitionButton;
+    public ToggleButton TableauBordButton;
+    public ToggleButton gestionUtilisateurButton;
     @FXML
     private Button closeButton;
 
@@ -39,44 +40,87 @@ public class MainBibliothecaireController implements Initializable {
 
     @FXML
     private ToggleButton gestionRestitutionButton;
-
-    
-
+    @FXML
+    public ToggleButton gestionAbonneButton;
+    @FXML
+    public ToggleButton gestionSanctionButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
 
 
-        loadPage("gestionEmprunts");
+        loadPage("gestionUtilisateur");
+
+       gestionUtilisateurButton.setOnAction(e -> {
+            gestionEmpruntButton.setSelected(false);
+            gestionRestitutionButton.setSelected(false);
+            gestionRapportButton.setSelected(false);
+            gestionAbonneButton.setSelected(false);
+            gestionSanctionButton.setSelected(false);
+            gestionAcquisitionButton.setSelected(false);
+            loadPage("gestionUtilisateur");
+        });
+
 
         gestionEmpruntButton.setOnAction(e -> {
             gestionRestitutionButton.setSelected(false);
             gestionRapportButton.setSelected(false);
+            gestionAbonneButton.setSelected(false);
+            gestionSanctionButton.setSelected(false);
             gestionAcquisitionButton.setSelected(false);
+            gestionUtilisateurButton.setSelected(false);
             loadPage("gestionEmprunts");
         });
         gestionRestitutionButton.setOnAction(e -> {
             gestionEmpruntButton.setSelected(false);
             gestionRapportButton.setSelected(false);
+            gestionAbonneButton.setSelected(false);
+            gestionSanctionButton.setSelected(false);
             gestionAcquisitionButton.setSelected(false);
+            gestionUtilisateurButton.setSelected(false);
             loadPage("gestionRestitution");
         });
         gestionRapportButton.setOnAction(e -> {
             gestionEmpruntButton.setSelected(false);
             gestionRestitutionButton.setSelected(false);
+            gestionAbonneButton.setSelected(false);
+            gestionSanctionButton.setSelected(false);
             gestionAcquisitionButton.setSelected(false);
+            gestionUtilisateurButton.setSelected(false);
             loadPage("gestionRapports");
         });
         gestionAcquisitionButton.setOnAction(e -> {
             gestionEmpruntButton.setSelected(false);
             gestionRestitutionButton.setSelected(false);
             gestionRapportButton.setSelected(false);
+            gestionAbonneButton.setSelected(false);
+            gestionSanctionButton.setSelected(false);
+            gestionUtilisateurButton.setSelected(false);
             loadPage("gestionAcquisitions");
         });
 
+        gestionAbonneButton.setOnAction(e -> {
+            gestionEmpruntButton.setSelected(false);
+            gestionRestitutionButton.setSelected(false);
+            gestionRapportButton.setSelected(false);
+            gestionAcquisitionButton.setSelected(false);
+            gestionSanctionButton.setSelected(false);
+            gestionUtilisateurButton.setSelected(false);
+            loadPage("gestionAbonnees");
+        });
+        gestionSanctionButton.setOnAction(e -> {
+            gestionEmpruntButton.setSelected(false);
+            gestionRestitutionButton.setSelected(false);
+            gestionRapportButton.setSelected(false);
+            gestionAbonneButton.setSelected(false);
+            gestionAcquisitionButton.setSelected(false);
+            gestionUtilisateurButton.setSelected(false);
+            loadPage("gestionSanctions");
+        });
 
-        gestionEmpruntButton.setSelected(true);
+
+        gestionUtilisateurButton.setSelected(true);
     }
 
     public void loadPage (String namePage){
@@ -92,13 +136,10 @@ public class MainBibliothecaireController implements Initializable {
 
 
 
-
-
     public void onClickClose(ActionEvent actionEvent) {
         closeButton.setOnMouseClicked((MouseEvent event) -> {
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();
-
         });
     }
 
@@ -123,3 +164,4 @@ public class MainBibliothecaireController implements Initializable {
         });
     }
 }
+

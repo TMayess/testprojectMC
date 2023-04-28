@@ -1,6 +1,7 @@
 package app.Models;
 
 import app.ConnectionDataBase;
+import javafx.scene.control.Alert;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -123,7 +124,7 @@ public class Abonnee {
 
 
            PreparedStatement stmt = conn.prepareStatement(query);
-           stmt.setString(1, identifiant);
+           stmt.setInt(1, Integer.parseInt(identifiant));
            stmt.setString(2, nom);
            stmt.setString(3, prenom);
            stmt.setDate(4, Date.valueOf(dateNaissance));
@@ -176,4 +177,71 @@ public class Abonnee {
        }
 
    }
+
+    public void dropSanction() {
+        String query = "DELETE FROM sanction WHERE Abonne_idAbonne  = ?";
+
+        try {
+            ConnectionDataBase connexion = new ConnectionDataBase();
+            Connection conn = connexion.conn;
+
+
+            PreparedStatement stmt = conn.prepareStatement(query);
+
+
+
+            stmt.setString(1, identifiant);
+
+            int rowsDeleted = stmt.executeUpdate();
+
+            if (rowsDeleted > 0) {
+                System.out.println("Sanction supprimé avec succès.");
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText(null);
+                alert.setContentText("l'abonne n'est pas sanctionnné");
+                alert.showAndWait();
+            }
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+
+            System.out.println("Une erreur s'est produite lors de la tentative d'ajout d'un abonne :");
+            e.printStackTrace();
+        }
+    }
+
+    public void prolongeEmprunt(LocalDate date) {
+        String query = "UPDATE `emprunt` SET `daterestitution`=? WHERE ?";
+        try {
+            ConnectionDataBase connexion = new ConnectionDataBase();
+            Connection conn = connexion.conn;
+
+
+            PreparedStatement stmt = conn.prepareStatement(query);
+
+
+            stmt.setDate(1, Date.valueOf(date));
+            stmt.setString(2, identifiant);
+
+            int rowsDeleted = stmt.executeUpdate();
+
+            if (rowsDeleted > 0) {
+                System.out.println("Emprunt modifier avec succès.");
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText(null);
+                alert.setContentText("Emprunt n'est pas modifier");
+                alert.showAndWait();
+            }
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+
+            System.out.println("Une erreur s'est produite lors de la tentative d'ajout d'un abonne :");
+            e.printStackTrace();
+        }
+    }
 }

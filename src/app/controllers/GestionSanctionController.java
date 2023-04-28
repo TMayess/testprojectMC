@@ -26,6 +26,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class GestionSanctionController implements Initializable {
@@ -35,6 +36,9 @@ public class GestionSanctionController implements Initializable {
     public TableColumn<Abonnee, String> dateEmpruntColumn;
     @FXML
     public TableColumn<Abonnee, String> dateRestitutionColumn;
+    public RadioButton radioTout;
+    public RadioButton radioSanctionner;
+    public RadioButton radioNonSanctionner;
     @FXML
     private TableView<Abonnee> sanctionTableView;
 
@@ -77,8 +81,7 @@ public class GestionSanctionController implements Initializable {
 
         rechercheComboBox.setItems(RECHERCHEPAR_LIST);
         rechercheComboBox.setValue(RECHERCHEPAR_ITEM[0]);
-        ConnectionDataBase connexion = new ConnectionDataBase();
-        Connection conn = connexion.conn;
+
 
         identifiantColumn.setCellValueFactory(new PropertyValueFactory<>("identifiant"));
         nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
@@ -102,10 +105,30 @@ public class GestionSanctionController implements Initializable {
             return new SimpleStringProperty(dateLimite);
         });
 
+        String sql = "SELECT abonne.idAbonne, abonne.nom, abonne.prenom, abonne.datenaiss, abonne.role, abonne.statut, emprunt.code, emprunt.dateemprunt, emprunt.daterestitution " +
+                "FROM abonne " +
+                "JOIN emprunt ON abonne.idAbonne = emprunt.idAbonne " +
+                "WHERE emprunt.rendu = 0 " +
+                "AND abonne.idAbonne NOT IN (SELECT Abonne_idAbonne FROM sanction)";
+        miseAJourTableViewSanction(sql);
+        sanctionTableView.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) {
+                Abonnee abonnee = sanctionTableView.getSelectionModel().getSelectedItem();
+
+                if (abonnee != null) {
+                    globalAbonnee = abonnee;
+                }
+            }
+        });
+
+    }
+
+    private void miseAJourTableViewSanction(String sql) {
+        ConnectionDataBase connexion = new ConnectionDataBase();
+        Connection conn = connexion.conn;
+
         try {
-            String sql = "SELECT abonne.idAbonne, abonne.nom, abonne.prenom, abonne.datenaiss, abonne.role, abonne.statut, emprunt.code, emprunt.dateemprunt, emprunt.daterestitution " +
-                    "FROM abonne " +
-                    "JOIN emprunt ON abonne.idAbonne = emprunt.idAbonne" ;
+
             Statement stmt = conn.createStatement();
 
             ResultSet rs = stmt.executeQuery(sql);
@@ -123,17 +146,6 @@ public class GestionSanctionController implements Initializable {
         }
 
         sanctionTableView.setItems(abonneeList);
-
-        sanctionTableView.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 1) {
-                Abonnee abonnee = sanctionTableView.getSelectionModel().getSelectedItem();
-
-                if (abonnee != null) {
-                    globalAbonnee = abonnee;
-                    System.out.println(abonnee.getNom() + " ");
-                }
-            }
-        });
 
     }
 
@@ -234,7 +246,48 @@ public class GestionSanctionController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            abonneeList.clear();
+            String sql = "SELECT abonne.idAbonne, abonne.nom, abonne.prenom, abonne.datenaiss, abonne.role, abonne.statut, emprunt.code, emprunt.dateemprunt, emprunt.daterestitution " +
+                    "FROM abonne " +
+                    "JOIN emprunt ON abonne.idAbonne = emprunt.idAbonne " +
+                    "WHERE emprunt.rendu = 0 " +
+                    "AND abonne.idAbonne NOT IN (SELECT Abonne_idAbonne FROM sanction)";
+            miseAJourTableViewSanction(sql);
 
     }
 
+    public void onClickRadioTout(ActionEvent actionEvent) {
+        abonneeList.clear();
+        String sql = "SELECT abonne.idAbonne, abonne.nom, abonne.prenom, abonne.datenaiss, abonne.role, abonne.statut, emprunt.code, emprunt.dateemprunt, emprunt.daterestitution " +
+                "FROM abonne " +
+                "JOIN emprunt ON abonne.idAbonne = emprunt.idAbonne " +
+                "WHERE emprunt.rendu = 0 " +
+                "AND abonne.idAbonne NOT IN (SELECT Abonne_idAbonne FROM sanction)";
+        miseAJourTableViewSanction(sql);
+
+    }
+
+    public void onClickRadioSanctionner(ActionEvent actionEvent) {
+        abonneeList.clear();
+        String sql = "SELECT abonne.idAbonne, abonne.nom, abonne.prenom, abonne.datenaiss, abonne.role, abonne.statut, emprunt.code, emprunt.dateemprunt, emprunt.daterestitution " +
+                "FROM abonne " +
+                "JOIN emprunt ON abonne.idAbonne = emprunt.idAbonne "+
+                "JOIN sanction ON sanction.Abonne_idAbonne = emprunt.idAbonne WHERE emprunt.rendu = 0";
+
+        miseAJourTableViewSanction(sql);
+    }
+
+    public void onClickRadioNonSanctionner(ActionEvent actionEvent) {
+        abonneeList.clear();
+        String sql = "SELECT abonne.idAbonne, abonne.nom, abonne.prenom, abonne.datenaiss, abonne.role, abonne.statut, emprunt.code, emprunt.dateemprunt, emprunt.daterestitution " +
+                "FROM abonne " +
+                "JOIN emprunt ON abonne.idAbonne = emprunt.idAbonne WHERE emprunt.rendu = 0  AND emprunt.daterestitution <= "+ LocalDate.now();
+        miseAJourTableViewSanction(sql);
+
+
+    }
+
+    public void onClickEnleverSanction(ActionEvent actionEvent) {
+        globalAbonnee.dropSanction();
+    }
 }

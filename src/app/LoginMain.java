@@ -59,11 +59,6 @@ public class LoginMain extends Application {
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
-                try {
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }
 
         });

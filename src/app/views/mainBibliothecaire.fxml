@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="732.0" prefWidth="1103.0" style="-fx-background-color: #EAECEE;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.MainBibliothecaireController">
+<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="732.0" prefWidth="1103.0" style="-fx-background-color: #EAECEE;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.MainBibliothecaireController">
    <left>
       <VBox prefHeight="624.0" prefWidth="242.0" style="-fx-background-color: #212F3C;" BorderPane.alignment="CENTER">
          <children>
@@ -60,6 +60,8 @@
                   <Insets left="40.0" />
                </padding>
             </ToggleButton>
+            <Pane prefHeight="200.0" prefWidth="242.0" />
+            <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#onClickLogout" prefHeight="51.0" prefWidth="243.0" style="-fx-background-color: #212F3C; -fx-font-size: 14px; -fx-font-weight: bold;" text="Deconnexion" textFill="#eb3b3b" />
          </children>
       </VBox>
    </left>

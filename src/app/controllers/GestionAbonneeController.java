@@ -20,10 +20,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -88,8 +85,7 @@ public class GestionAbonneeController implements Initializable {
         roleComboBox.setValue(ROLE_ITEM[0]);
         rechercheComboBox.setItems(RECHERCHEPAR_LIST);
         rechercheComboBox.setValue(RECHERCHEPAR_ITEM[0]);
-        ConnectionDataBase connexion = new ConnectionDataBase();
-        Connection conn = connexion.conn;
+
 
         identifiantColumn.setCellValueFactory(new PropertyValueFactory<>("identifiant"));
         nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
@@ -98,6 +94,24 @@ public class GestionAbonneeController implements Initializable {
         roleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
         statutColumn.setCellValueFactory(new PropertyValueFactory<>("statut"));
 
+        miseAJourTableViewAbonne();
+
+        abonneeTableView.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) {
+                Abonnee abonnee = abonneeTableView.getSelectionModel().getSelectedItem();
+
+                if (abonnee != null) {
+                    abonnee1 = abonnee;
+                    System.out.println(abonnee.getNom() + " ");
+                }
+            }
+        });
+
+    }
+
+    private void miseAJourTableViewAbonne() {
+        ConnectionDataBase connexion = new ConnectionDataBase();
+        Connection conn = connexion.conn;
         try {
             String sql = "SELECT * FROM abonne" ;
             Statement stmt = conn.createStatement();
@@ -115,18 +129,6 @@ public class GestionAbonneeController implements Initializable {
         }
 
         abonneeTableView.setItems(abonneeList);
-
-        abonneeTableView.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 1) {
-                Abonnee abonnee = abonneeTableView.getSelectionModel().getSelectedItem();
-
-                if (abonnee != null) {
-                    abonnee1 = abonnee;
-                    System.out.println(abonnee.getNom() + " ");
-                }
-            }
-        });
-
     }
 
     public void onClickModifierAbonnee(ActionEvent actionEvent) {
@@ -147,17 +149,27 @@ public class GestionAbonneeController implements Initializable {
     }
 
     public void onClickSupprimerAbonnee(ActionEvent actionEvent) {
-        try {
+        if (abonnee1 != null){
+            try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/views/PopUp/popUp_valideModification.fxml"));
-            Parent root = loader.load();
-            ValideModificationController controller = loader.getController();
-            controller.setAbonnee(abonnee1,"suppression abonné","Voulez-vous suprimer cet abonné ?");
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/views/PopUp/popUp_valideModification.fxml"));
+                Parent root = loader.load();
+                ValideModificationController controller = loader.getController();
+                controller.setAbonnee(abonnee1,"suppression abonné","Voulez-vous suprimer cet abonné ?");
 
-            createWindow(root);
+                createWindow(root);
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            abonneeList.clear();
+            miseAJourTableViewAbonne();
+        }else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("selectionner un abonné");
+            alert.showAndWait();
         }
     }
 
@@ -165,30 +177,105 @@ public class GestionAbonneeController implements Initializable {
 
         if (verifieEditNonVide()) {
 
+            String identifiantAbonneString = identifiantEdit.getText().toString();
+            int identifiantAbonneInt = Integer.parseInt(identifiantAbonneString);
+
+
             String role = (String) roleComboBox.getSelectionModel().getSelectedItem();
             String statut = (String) statutComboBox.getSelectionModel().getSelectedItem();
             LocalDate dateNaissance = dateNaissanceEdit.getValue();
-
-            Abonnee abonneAAjouter = new Abonnee(identifiantEdit.getText(), nomEdit.getText(), prenomEdit.getText(), dateNaissance, role, statut);
-
-            try {
-
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/views/PopUp/popUp_valideModification.fxml"));
-                Parent root = loader.load();
-
-                ValideModificationController controller = loader.getController();
-                controller.setAbonnee(abonneAAjouter, "Ajout abonné", "Voulez-vous ajouter cet abonné ?");
-
-                createWindow(root);
+            if (testExisteId()) {
+                if (testStatutExterne(statut)) {
+                    try {
 
 
-            } catch (IOException e) {
-                e.printStackTrace();
+                        Abonnee abonneAAjouter = new Abonnee(identifiantAbonneString, nomEdit.getText(), prenomEdit.getText(), dateNaissance, statut, role);
+
+                        try {
+
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/views/PopUp/popUp_valideModification.fxml"));
+                            Parent root = loader.load();
+
+                            ValideModificationController controller = loader.getController();
+                            controller.setAbonnee(abonneAAjouter, "Ajout abonné", "Voulez-vous ajouter cet abonné ?");
+
+                            createWindow(root);
+
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        abonneeList.clear();
+                        miseAJourTableViewAbonne();
+
+                    } catch (NumberFormatException e) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Erreur");
+                        alert.setHeaderText(null);
+                        alert.setContentText("L'identifiant est un entier");
+                        alert.showAndWait();
+
+                    }
+                }
             }
         }
     }
 
+    private boolean testExisteId() {
+        ConnectionDataBase connexion = new ConnectionDataBase();
+        Connection conn = connexion.conn;
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM abonne WHERE idAbonne = ?")) {
+            stmt.setString(1, identifiantEdit.getText());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next() && rs.getInt(1) > 0) {
+                // ID already exists, show error message and return
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText(null);
+                alert.setContentText("Cet identifiant existe déjà dans la base de données.");
+                alert.showAndWait();
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
 
+    private boolean testStatutExterne(String statut) {
+        if(statut == "Externe") {
+            ConnectionDataBase connexion = new ConnectionDataBase();
+            Connection conn = connexion.conn;
+            try (
+                 PreparedStatement stmtInterne = conn.prepareStatement("SELECT COUNT(*) FROM abonne WHERE abonne.statut = 'interne'");
+                 PreparedStatement stmtExterne = conn.prepareStatement("SELECT COUNT(*) FROM abonne WHERE abonne.statut = 'externe'")) {
+                ResultSet rs = stmtInterne.executeQuery();
+                rs.next();
+                int nbInterns = rs.getInt(1);
+
+                ResultSet rs2 = stmtExterne.executeQuery();
+                rs2.next();
+                int nbExterns = rs2.getInt(1);
+
+                if (nbExterns >= (int)(nbInterns * 0.1)) {
+                    System.out.println(nbExterns+" "+nbInterns);
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Le nombre maximal d'externes a été atteint.");
+                    alert.showAndWait();
+                    return false;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
+    }
+
+ /*   private boolean identifiantNotInteger() {
+        int maVar = Integer.parseInt(identifiantEdit.getText());
+    }*/
 
 
     public void onClickRecherche(ActionEvent actionEvent) {
@@ -244,7 +331,6 @@ public class GestionAbonneeController implements Initializable {
         popupStage.setScene(scene);
         popupStage.initModality(Modality.APPLICATION_MODAL);
         popupStage.initStyle(StageStyle.UNDECORATED);
-
         popupStage.showAndWait();
     }
 

@@ -11,25 +11,27 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="995.0" style="-fx-background-color: #EAECEE;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.MainGestionnaireController">
+<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="732.0" prefWidth="1103.0" style="-fx-background-color: #EAECEE;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.MainGestionnaireController">
     <left>
         <VBox prefHeight="624.0" prefWidth="242.0" style="-fx-background-color: #212F3C;" BorderPane.alignment="CENTER">
             <children>
-            <Pane prefHeight="200.0" prefWidth="200.0" />
-                <ToggleButton fx:id="gestionAbonneButton" alignment="BASELINE_LEFT"  prefHeight="65.0" prefWidth="250.0" styleClass="button2" stylesheets="@../css/style.css" text="Gestion des abonnee">
+            <Pane prefHeight="248.0" prefWidth="242.0" />
+                <ToggleButton fx:id="gestionAbonneButton" alignment="BASELINE_LEFT" prefHeight="58.0" prefWidth="250.0" styleClass="button2" stylesheets="@../css/style.css" text="Gestion des abonnee">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
                <padding>
                   <Insets left="40.0" />
                </padding></ToggleButton>
-                <ToggleButton fx:id="gestionSanctionButton" alignment="BASELINE_LEFT" prefHeight="65.0" prefWidth="250.0" styleClass="button2" stylesheets="@../css/style.css" text="Gestion des sanction">
+                <ToggleButton fx:id="gestionSanctionButton" alignment="BASELINE_LEFT" prefHeight="58.0" prefWidth="250.0" styleClass="button2" stylesheets="@../css/style.css" text="Gestion des sanction">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
                <padding>
                   <Insets left="40.0" />
                </padding></ToggleButton>
+            <Pane prefHeight="253.0" prefWidth="242.0" />
+            <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#onClickLogout" prefHeight="53.0" prefWidth="251.0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-background-color: #212F3C;" text="Deconnexion" textFill="#ff3737" />
             </children>
          </VBox>
     </left>
@@ -46,7 +48,7 @@
                         <Image url="@../images/icon-book.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="closeButton" alignment="TOP_CENTER" layoutX="953.0" layoutY="10.0" mnemonicParsing="false" onAction="#onClickClose" prefHeight="25.0" prefWidth="25.0">
+                <Button fx:id="closeButton" alignment="TOP_CENTER" layoutX="1064.0" layoutY="11.0" mnemonicParsing="false" onAction="#onClickClose" prefHeight="25.0" prefWidth="25.0">
                     <padding>
                         <Insets bottom="-6.0" left="-5.0" right="-5.0" top="-5.0" />
                     </padding>
@@ -58,7 +60,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="reduceButton" alignment="TOP_CENTER" layoutX="916.0" layoutY="10.0" mnemonicParsing="false" onAction="#onClickReduce" prefHeight="25.0" prefWidth="25.0">
+                <Button fx:id="reduceButton" alignment="TOP_CENTER" layoutX="1027.0" layoutY="11.0" mnemonicParsing="false" onAction="#onClickReduce" prefHeight="25.0" prefWidth="25.0">
                     <padding>
                         <Insets bottom="-5.0" left="-5.0" right="-5.0" top="-5.0" />
                     </padding>
@@ -73,4 +75,5 @@
             </children>
         </Pane>
     </top>
+
 </BorderPane>

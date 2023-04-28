@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="369.0" prefWidth="388.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.popUp.ValidationEmpruntController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="541.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.popUp.ValidationEmpruntController">
    <children>
-      <Pane layoutX="-5.0" layoutY="-1.0" prefHeight="41.0" prefWidth="394.0" style="-fx-background-color: #D5D8DC;">
+      <Pane layoutX="-5.0" layoutY="-1.0" prefHeight="41.0" prefWidth="547.0" style="-fx-background-color: #D5D8DC;">
          <children>
             <ImageView fitHeight="32.0" fitWidth="20.0" layoutX="22.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -24,24 +24,35 @@
             </Label>
          </children>
       </Pane>
-      <Button layoutX="88.0" layoutY="294.0" mnemonicParsing="false" onAction="#onClickAnnuler" prefHeight="41.0" prefWidth="86.0" text="Annuler" />
-      <Button layoutX="216.0" layoutY="294.0" mnemonicParsing="false" onAction="#onClickConfirme" prefHeight="41.0" prefWidth="86.0" text="Confirmer" />
+      <Button layoutX="151.0" layoutY="294.0" mnemonicParsing="false" onAction="#onClickAnnuler" prefHeight="41.0" prefWidth="86.0" text="Annuler" />
+      <Button layoutX="335.0" layoutY="294.0" mnemonicParsing="false" onAction="#onClickConfirme" prefHeight="41.0" prefWidth="86.0" text="Confirmer" />
       <Label layoutX="41.0" layoutY="80.0" prefHeight="17.0" prefWidth="48.0" text="Nom :" />
       <Label layoutX="41.0" layoutY="105.0" text="Prénom :" />
-      <Label layoutX="41.0" layoutY="130.0" text="Ref livre :" />
+      <Label layoutX="41.0" layoutY="130.0" text="Ouvrage" />
       <Label layoutX="42.0" layoutY="56.0" text="Identifiant :" />
-      <Label layoutX="41.0" layoutY="202.0" text="Date emprunt :" />
-      <Label layoutX="41.0" layoutY="228.0" text="Date limite :" />
-      <Label fx:id="identifiantValeur" layoutX="166.0" layoutY="59.0" text="Label" />
-      <Label fx:id="nomValeur" layoutX="166.0" layoutY="83.0" text="Label" />
-      <Label fx:id="prenomValeur" layoutX="166.0" layoutY="108.0" text="Label" />
+      <Label layoutX="40.0" layoutY="219.0" text="Date emprunt :" />
+      <Label layoutX="40.0" layoutY="253.0" text="Date limite :" />
+      <Label fx:id="identifiantValeur" layoutX="116.0" layoutY="56.0" text="Label" />
+      <Label fx:id="nomValeur" layoutX="88.0" layoutY="80.0" text="Label" />
+      <Label fx:id="prenomValeur" layoutX="102.0" layoutY="105.0" text="Label" />
       <Label layoutX="110.0" layoutY="130.0" text="Livre 1 :" />
       <Label layoutX="110.0" layoutY="153.0" text="Livre 2 :" />
-      <Label fx:id="dateEmpruntValeur" layoutX="166.0" layoutY="202.0" />
+      <Label fx:id="dateEmpruntValeur" layoutX="132.0" layoutY="219.0" prefHeight="17.0" prefWidth="96.0" />
       <Label layoutX="110.0" layoutY="177.0" text="Livre 3 :" />
-      <Label fx:id="refLivre1Valeur" layoutX="166.0" layoutY="130.0" />
-      <Label fx:id="refLivre2Valeur" layoutX="166.0" layoutY="153.0" />
-      <Label fx:id="refLivre3Valeur" layoutX="166.0" layoutY="177.0" />
-      <Label fx:id="dateLimiteValeur" layoutX="166.0" layoutY="228.0" />
+      <Label fx:id="refLivre1Valeur" layoutX="391.0" layoutY="130.0" prefHeight="17.0" prefWidth="86.0" />
+      <Label fx:id="refLivre2Valeur" layoutX="391.0" layoutY="153.0" prefHeight="17.0" prefWidth="86.0" />
+      <Label fx:id="refLivre3Valeur" layoutX="391.0" layoutY="177.0" prefHeight="17.0" prefWidth="96.0" />
+      <Label fx:id="dateLimiteValeur" layoutX="117.0" layoutY="253.0" prefHeight="17.0" prefWidth="125.0" />
+      <Button layoutX="237.0" layoutY="438.0" mnemonicParsing="false" onAction="#onClickImprime" prefHeight="41.0" prefWidth="86.0" text="Imprimer" />
+      <Label fx:id="valideEmprunt" alignment="CENTER" contentDisplay="CENTER" layoutX="70.0" layoutY="363.0" prefHeight="66.0" prefWidth="419.0" textFill="#76e446">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label layoutX="364.0" layoutY="130.0" text="Ref :" />
+      <Label layoutX="364.0" layoutY="153.0" text="Ref :" />
+      <Label layoutX="364.0" layoutY="177.0" text="Ref : " />
+      <Label fx:id="titreLivre1" layoutX="166.0" layoutY="130.0" text="Label" />
+      <Label fx:id="titreLivre2" layoutX="166.0" layoutY="153.0" />
+      <Label fx:id="titreLivre3" layoutX="166.0" layoutY="177.0" />
    </children>
 </AnchorPane>

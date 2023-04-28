@@ -128,28 +128,8 @@ public class GestionEmpruntController implements Initializable {
         prenomColumn.setCellValueFactory(new PropertyValueFactory<>("prenom"));
         roleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
         statutColumn.setCellValueFactory(new PropertyValueFactory<>("statut"));
-        try {
-            ConnectionDataBase connexion = new ConnectionDataBase();
-            Connection conn = connexion.conn;
-            String query = "SELECT * FROM Abonne WHERE idAbonne NOT IN (SELECT DISTINCT idAbonne FROM emprunt WHERE rendu = 0)";
 
-            Statement stmt = conn.createStatement();
-
-            ResultSet rs = stmt.executeQuery(query);
-
-            while (rs.next()) {
-                Abonnee abonne = new Abonnee(rs.getString("idAbonne"),rs.getString("nom"), rs.getString("prenom"), rs.getDate("dateNaiss").toLocalDate(),rs.getString("role"),rs.getString("statut"));
-                abonneeList.add(abonne);
-            }
-            rs.close();
-            stmt.close();
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
-        empruntTableView.setItems(abonneeList);
+        upDateTableView_Abonne();
 
 
         identifiantOuvrageColumn.setCellValueFactory(new PropertyValueFactory<>("Identifiant"));
@@ -157,52 +137,7 @@ public class GestionEmpruntController implements Initializable {
         auteurColumn.setCellValueFactory(new PropertyValueFactory<>("Auteur"));
         rayonColumn.setCellValueFactory(new PropertyValueFactory<>("Rayon"));
 
-        try {
-            ConnectionDataBase connexion = new ConnectionDataBase();
-            Connection conn = connexion.conn;
-            String query = "SELECT idOuvrage, titre, auteur, rayon, ref " +
-                    "FROM exemplaire " +
-                    "JOIN ouvrage ON exemplaire.Ouvrage_idOuvrage = ouvrage.idOuvrage " +
-                    "WHERE exemplaire.disponible = 1";
-
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-
-
-            Map<String, Ouvrage> ouvrageMap = new HashMap<>();
-
-            while (rs.next()) {
-                String idOuvrage = rs.getString("idOuvrage");
-                String titre = rs.getString("titre");
-                String auteur = rs.getString("auteur");
-                String rayon = rs.getString("rayon");
-                String ref = rs.getString("ref");
-
-                Ouvrage ouvrage;
-                if (ouvrageMap.containsKey(idOuvrage)) {
-                    ouvrage = ouvrageMap.get(idOuvrage);
-                } else {
-                    ouvrage = new Ouvrage(idOuvrage, titre, auteur, rayon, new ArrayList<Exemplaire>());
-                    ouvrageMap.put(idOuvrage, ouvrage);
-                    ouvrageList.add(ouvrage);
-                }
-
-                Exemplaire exemplaire = new Exemplaire(ref, idOuvrage);
-                ouvrage.getExemplaires().add(exemplaire);
-
-
-            }
-
-
-            rs.close();
-            stmt.close();
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
-        empruntOuvrageTableView.setItems(ouvrageList);
+        upDateTableView_Ouvrage();
 
 
         identifiantExemplaireColumn.setCellValueFactory(new PropertyValueFactory<>("idOuvrage"));
@@ -253,6 +188,75 @@ public class GestionEmpruntController implements Initializable {
         hbox.getChildren().add(plusPane);
     }
 
+    private void upDateTableView_Ouvrage() {
+        try {
+            ConnectionDataBase connexion = new ConnectionDataBase();
+            Connection conn = connexion.conn;
+            String query = "SELECT idOuvrage, titre, auteur, rayon, ref " +
+                    "FROM exemplaire " +
+                    "JOIN ouvrage ON exemplaire.Ouvrage_idOuvrage = ouvrage.idOuvrage " +
+                    "WHERE exemplaire.disponible = 1";
+
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+
+            Map<String, Ouvrage> ouvrageMap = new HashMap<>();
+
+            while (rs.next()) {
+                String idOuvrage = rs.getString("idOuvrage");
+                String titre = rs.getString("titre");
+                String auteur = rs.getString("auteur");
+                String rayon = rs.getString("rayon");
+                String ref = rs.getString("ref");
+
+                Ouvrage ouvrage;
+                if (ouvrageMap.containsKey(idOuvrage)) {
+                    ouvrage = ouvrageMap.get(idOuvrage);
+                } else {
+                    ouvrage = new Ouvrage(idOuvrage, titre, auteur, rayon, new ArrayList<Exemplaire>());
+                    ouvrageMap.put(idOuvrage, ouvrage);
+                    ouvrageList.add(ouvrage);
+                }
+
+                Exemplaire exemplaire = new Exemplaire(ref, idOuvrage);
+                ouvrage.getExemplaires().add(exemplaire);
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        empruntOuvrageTableView.setItems(ouvrageList);
+    }
+
+    private void upDateTableView_Abonne() {
+        try {
+            ConnectionDataBase connexion = new ConnectionDataBase();
+            Connection conn = connexion.conn;
+            String query = "SELECT * FROM Abonne WHERE idAbonne NOT IN (SELECT DISTINCT idAbonne FROM emprunt WHERE rendu = 0) AND abonne.idAbonne NOT IN (SELECT Abonne_idAbonne FROM sanction)";
+
+            Statement stmt = conn.createStatement();
+
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                Abonnee abonne = new Abonnee(rs.getString("idAbonne"),rs.getString("nom"), rs.getString("prenom"), rs.getDate("dateNaiss").toLocalDate(),rs.getString("role"),rs.getString("statut"));
+                abonneeList.add(abonne);
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        empruntTableView.setItems(abonneeList);
+    }
 
 
     public void onClickRecherche(ActionEvent actionEvent) {
@@ -490,6 +494,8 @@ public class GestionEmpruntController implements Initializable {
             alert.create();
 
         }else {
+            ouvrageList.clear();
+            abonneeList.clear();
             try {
                 loader = new FXMLLoader(getClass().getResource("/app/views/PopUp/popUp_validationEmprunt.fxml"));
                 root = loader.load();
@@ -503,6 +509,8 @@ public class GestionEmpruntController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            upDateTableView_Abonne();
+            upDateTableView_Ouvrage();
 
         }
 

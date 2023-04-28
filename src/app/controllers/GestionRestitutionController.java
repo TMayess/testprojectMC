@@ -81,8 +81,7 @@ public class GestionRestitutionController implements Initializable {
         rechercheAvecComboBox.setItems(RECHERCHEPAR_LIST);
         rechercheAvecComboBox.setValue(RECHERCHEPAR_ITEM[0]);
 
-        ConnectionDataBase connexion = new ConnectionDataBase();
-        Connection conn = connexion.conn;
+
 
         codeColumn.setCellValueFactory(new PropertyValueFactory<>("code"));
         dateEmpruntColumn.setCellValueFactory(new PropertyValueFactory<>("dateEmprunt"));
@@ -120,10 +119,26 @@ public class GestionRestitutionController implements Initializable {
         });
 
 
+        upDateTableView();
 
 
 
+        restitutionTableView.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) {
+                Emprunt emprunt = restitutionTableView.getSelectionModel().getSelectedItem();
+                if (emprunt != null) {
+                    globalemprunt = emprunt;
+                }
+            }
+        });
 
+
+    }
+
+    public void upDateTableView() {
+        ConnectionDataBase connexion = new ConnectionDataBase();
+        Connection conn = connexion.conn;
+        empruntList.clear();
         try {
             String sql = "SELECT *" +
                     "FROM emprunt " +
@@ -142,27 +157,13 @@ public class GestionRestitutionController implements Initializable {
                 Emprunt emprunt = new Emprunt(rs.getInt("code"), rs.getDate("dateemprunt").toLocalDate(), rs.getDate("daterestitution").toLocalDate(), rs.getTime("heure").toLocalTime(), abonne, exemplaireList);
                 empruntList.add(emprunt);
             }
-
             rs.close();
             stmt.close();
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(empruntList.size());
-
         restitutionTableView.setItems(empruntList);
-
-        restitutionTableView.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 1) {
-                Emprunt emprunt = restitutionTableView.getSelectionModel().getSelectedItem();
-
-                if (emprunt != null) {
-                    globalemprunt = emprunt;
-                }
-            }
-        });
-
 
     }
 
@@ -216,14 +217,18 @@ public class GestionRestitutionController implements Initializable {
                 popupStage.showAndWait();
 
 
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            upDateTableView();
         }else{
             AlerteDialoguePerso alert = new AlerteDialoguePerso("Erreur","Sélectionnez l'abonné qui veut rendre les ouvrages empruntés");
             alert.create();
         }
     }
+
+
 }
 
 

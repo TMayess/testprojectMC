@@ -1,5 +1,6 @@
 package app.controllers;
 
+import app.LoginMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +24,7 @@ public class MainGestionnaireController implements Initializable {
     public ToggleButton gestionAbonneButton;
     @FXML
     public ToggleButton gestionSanctionButton;
+    public ToggleButton TableauBordButton;
     @FXML
     private Button closeButton;
 
@@ -32,7 +34,7 @@ public class MainGestionnaireController implements Initializable {
     @FXML
     private BorderPane bp;
 
-
+    public Button logoutButton;
 
 
 
@@ -51,7 +53,6 @@ public class MainGestionnaireController implements Initializable {
             gestionAbonneButton.setSelected(false);
             loadPage("gestionSanctions");
         });
-
         gestionAbonneButton.setSelected(true);
 
     }
@@ -65,8 +66,6 @@ public class MainGestionnaireController implements Initializable {
         }
         bp.setCenter(root);
     }
-
-
 
 
 
@@ -84,4 +83,17 @@ public class MainGestionnaireController implements Initializable {
         });
     }
 
+    public void onClickLogout(ActionEvent actionEvent) {
+
+        logoutButton.setOnMouseClicked((MouseEvent event) -> {
+            Stage stage = (Stage) logoutButton.getScene().getWindow();
+            LoginMain log = new LoginMain();
+            stage.close();
+            try {
+                log.start(new Stage());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
 }

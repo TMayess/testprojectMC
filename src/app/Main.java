@@ -13,6 +13,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         String role = (String) primaryStage.getUserData();
         Parent root = FXMLLoader.load(getClass().getResource("views/main"+role+".fxml"));
+      //  Parent root = FXMLLoader.load(getClass().getResource("views/mainGestionnaire.fxml"));
 
         root.setOnMousePressed(event -> {
             x = event.getSceneX();

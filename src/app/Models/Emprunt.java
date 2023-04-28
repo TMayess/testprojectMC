@@ -93,14 +93,15 @@ public class Emprunt {
         this.exemplaires = exemplaires;
     }
 
-    public void addEmprunt(){
+    public Emprunt addEmprunt() {
         String query = "INSERT INTO `emprunt` (`dateemprunt`, `heure`, `daterestitution`, `idAbonne`, `refExemplaire1`, `refExemplaire2`, `refExemplaire3`, `rendu`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
+        Emprunt newEmprunt = null;
         try {
             ConnectionDataBase connexion = new ConnectionDataBase();
             Connection conn = connexion.conn;
 
-            PreparedStatement stmt = conn.prepareStatement(query);
+            PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setDate(1, Date.valueOf(dateEmprunt));
             stmt.setTime(2, Time.valueOf(heure));
             stmt.setDate(3, Date.valueOf(dateLimite));
@@ -108,23 +109,24 @@ public class Emprunt {
             stmt.setString(5, exemplaires.get(0).getReference());
             if (exemplaires.size() > 1){
                 stmt.setString(6, exemplaires.get(1).getReference());
-            }else {
+            } else {
                 stmt.setString(6, null);
             }
             if (exemplaires.size() > 2){
                 stmt.setString(7, exemplaires.get(2).getReference());
-            }else {
+            } else {
                 stmt.setString(7, null);
             }
             stmt.setBoolean(8, false);
 
             int rowsInserted = stmt.executeUpdate();
             if (rowsInserted > 0) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Confirmation");
-                alert.setHeaderText(null);
-                alert.setContentText("Le nouvel emprunt a été ajouté à la table !");
-                alert.showAndWait();
+                ResultSet generatedKeys = stmt.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int id = generatedKeys.getInt(1);
+                    newEmprunt = new Emprunt(id, dateEmprunt, dateLimite, heure, _abonnee);
+                }
+
             }
 
             stmt.close();
@@ -133,6 +135,7 @@ public class Emprunt {
             System.out.println("Une erreur s'est produite lors de la tentative d'ajout d'un emprunt :");
             e.printStackTrace();
         }
+        return newEmprunt;
     }
 
     public void valideRestitution() {

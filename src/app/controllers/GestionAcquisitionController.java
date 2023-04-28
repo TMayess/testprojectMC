@@ -67,15 +67,31 @@ public class GestionAcquisitionController implements Initializable {
         rechercheAvecComboBox.setItems(RECHERCHEPAR_LIST);
         rechercheAvecComboBox.setValue(RECHERCHEPAR_ITEM[0]);
 
-            ConnectionDataBase connexion = new ConnectionDataBase();
-            Connection conn = connexion.conn;
+
 
             identifiantColumn.setCellValueFactory(new PropertyValueFactory<>("Identifiant"));
             titreColumn.setCellValueFactory(new PropertyValueFactory<>("Titre"));
             auteurColumn.setCellValueFactory(new PropertyValueFactory<>("Auteur"));
             rayonColumn.setCellValueFactory(new PropertyValueFactory<>("Rayon"));
 
+        upDateTableView_ouvrage();
+
+            acquisitionTableView.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1) {
+                    Ouvrage ouvrage = acquisitionTableView.getSelectionModel().getSelectedItem();
+
+                    if (ouvrage != null) {
+                        exemplaire = ouvrage;
+                    }
+                }
+            });
+    }
+
+    private void upDateTableView_ouvrage() {
+        ouvrageList.clear();
         try {
+            ConnectionDataBase connexion = new ConnectionDataBase();
+            Connection conn = connexion.conn;
             String sql = "SELECT * FROM ouvrage";
             Statement stmt = conn.createStatement();
 
@@ -91,17 +107,7 @@ public class GestionAcquisitionController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-           acquisitionTableView.setItems(ouvrageList);
-
-            acquisitionTableView.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 1) {
-                    Ouvrage ouvrage = acquisitionTableView.getSelectionModel().getSelectedItem();
-
-                    if (ouvrage != null) {
-                        exemplaire = ouvrage;
-                    }
-                }
-            });
+        acquisitionTableView.setItems(ouvrageList);
     }
 
     public void onClickRecherche(ActionEvent actionEvent) {
@@ -167,9 +173,11 @@ public class GestionAcquisitionController implements Initializable {
 
                 popupStage.showAndWait();
 
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            upDateTableView_ouvrage();
         }else {
             AlerteDialoguePerso alert = new AlerteDialoguePerso("Erreur","Vous devez remplir tous les informations de l'ouvrage.");
             alert.create();
